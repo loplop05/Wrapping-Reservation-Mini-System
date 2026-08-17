@@ -30,6 +30,7 @@ namespace PL
                     nudBooksQty.Value = Convert.ToInt32(row["BooksQty"]);
                     txtOtherPurchases.Text = Convert.ToDecimal(row["OtherPurchasesAmount"]).ToString("F2");
                     cmbStatus.Text = row["Status"].ToString();
+                    cmbPaymentMethod.Text = row["PaymentMethod"].ToString();
                     CalculateTotal();
                 }
             }
@@ -85,10 +86,11 @@ namespace PL
             }
 
             string status = cmbStatus.Text;
+            string paymentMethod = cmbPaymentMethod.Text;
 
             try
             {
-                bool success = orderBLL.UpdateOrder(orderId, booksQty, otherPurchases, status);
+                bool success = orderBLL.UpdateOrder(orderId, booksQty, otherPurchases, status, paymentMethod);
 
                 if (success)
                 {

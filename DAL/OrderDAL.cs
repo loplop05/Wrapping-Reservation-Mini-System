@@ -53,13 +53,14 @@ namespace DAL
             return dataAccess.ExecuteQuery(query, parameters);
         }
 
-        public int UpdateOrder(int orderId, int booksQty, decimal otherPurchasesAmount, decimal totalBill, string status)
+        public int UpdateOrder(int orderId, int booksQty, decimal otherPurchasesAmount, decimal totalBill, string status, string paymentMethod)
         {
             string query = @"UPDATE Orders 
                             SET BooksQty = @BooksQty, 
                                 OtherPurchasesAmount = @OtherPurchasesAmount, 
                                 TotalBill = @TotalBill, 
-                                Status = @Status 
+                                Status = @Status,
+                                PaymentMethod = @PaymentMethod
                             WHERE OrderID = @OrderID";
             SqlParameter[] parameters = new SqlParameter[]
             {
@@ -67,7 +68,8 @@ namespace DAL
                 new SqlParameter("@BooksQty", booksQty),
                 new SqlParameter("@OtherPurchasesAmount", otherPurchasesAmount),
                 new SqlParameter("@TotalBill", totalBill),
-                new SqlParameter("@Status", status)
+                new SqlParameter("@Status", status),
+                new SqlParameter("@PaymentMethod", paymentMethod)
             };
             return dataAccess.ExecuteNonQuery(query, parameters);
         }
@@ -96,7 +98,7 @@ namespace DAL
         public DataTable SearchOrders(string searchTerm)
         {
             string query = @"SELECT o.OrderID, c.Name AS CustomerName, c.Phone, o.BooksQty, 
-                            o.OtherPurchasesAmount, o.TotalBill, o.OrderDate, o.Status 
+                            o.OtherPurchasesAmount, o.TotalBill, o.OrderDate, o.Status, o.PaymentMethod
                             FROM Orders o 
                             INNER JOIN Customers c ON o.CustomerID = c.CustomerID 
                             WHERE c.Phone LIKE @SearchTerm 
@@ -108,6 +110,35 @@ namespace DAL
                 new SqlParameter("@SearchTerm", "%" + searchTerm + "%")
             };
             return dataAccess.ExecuteQuery(query, parameters);
+        }
+
+        public DataTable GetOrdersByStatus(string status)
+        {
+            string query = @"SELECT o.OrderID, c.Name AS CustomerName, c.Phone, o.BooksQty, 
+                            o.OtherPurchasesAmount, o.TotalBill, o.OrderDate, o.Status, o.PaymentMethod
+                            FROM Orders o 
+                            INNER JOIN Customers c ON o.CustomerID = c.CustomerID 
+                            WHERE o.Status = @Status
+                            ORDER BY o.OrderDate DESC";
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@Status", status)
+            };
+            return dataAccess.ExecuteQuery(query);
+        }
+
+        public DataTable GetEndOfDayStatistics()
+        {
+            string query = @"SELECT 
+                            COUNT(DISTINCT o.CustomerID) AS TotalCustomers,
+                            SUM(o.BooksQty) AS TotalBooks,
+                            SUM(o.TotalBill) AS TotalMoney,
+                            SUM(CASE WHEN o.PaymentMethod = 'Cash' THEN o.TotalBill ELSE 0 END) AS TotalCash,
+                            SUM(CASE WHEN o.PaymentMethod = 'Visa' THEN o.TotalBill ELSE 0 END) AS TotalVisa,
+                            COUNT(*) AS TotalOrders
+                            FROM Orders o 
+                            WHERE CAST(o.OrderDate AS DATE) = CAST(GETDATE() AS DATE)";
+            return dataAccess.ExecuteQuery(query);
         }
     }
 }

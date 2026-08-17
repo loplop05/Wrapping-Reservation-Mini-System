@@ -21,6 +21,8 @@ namespace PL
             this.txtOtherPurchases = new System.Windows.Forms.TextBox();
             this.lblStatus = new System.Windows.Forms.Label();
             this.cmbStatus = new System.Windows.Forms.ComboBox();
+            this.lblPaymentMethod = new System.Windows.Forms.Label();
+            this.cmbPaymentMethod = new System.Windows.Forms.ComboBox();
             this.lblTotalBill = new System.Windows.Forms.Label();
             this.lblTotalBillValue = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
@@ -96,14 +98,36 @@ namespace PL
             this.cmbStatus.Size = new System.Drawing.Size(150, 30);
             this.cmbStatus.TabIndex = 6;
             // 
+            // lblPaymentMethod
+            // 
+            this.lblPaymentMethod.AutoSize = true;
+            this.lblPaymentMethod.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPaymentMethod.Location = new System.Drawing.Point(50, 230);
+            this.lblPaymentMethod.Name = "lblPaymentMethod";
+            this.lblPaymentMethod.Size = new System.Drawing.Size(128, 24);
+            this.lblPaymentMethod.TabIndex = 7;
+            this.lblPaymentMethod.Text = "Payment Method:";
+            // 
+            // cmbPaymentMethod
+            // 
+            this.cmbPaymentMethod.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbPaymentMethod.FormattingEnabled = true;
+            this.cmbPaymentMethod.Items.AddRange(new object[] {
+            "Cash",
+            "Visa"});
+            this.cmbPaymentMethod.Location = new System.Drawing.Point(273, 227);
+            this.cmbPaymentMethod.Name = "cmbPaymentMethod";
+            this.cmbPaymentMethod.Size = new System.Drawing.Size(150, 30);
+            this.cmbPaymentMethod.TabIndex = 8;
+            // 
             // lblTotalBill
             // 
             this.lblTotalBill.AutoSize = true;
             this.lblTotalBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalBill.Location = new System.Drawing.Point(50, 230);
+            this.lblTotalBill.Location = new System.Drawing.Point(50, 280);
             this.lblTotalBill.Name = "lblTotalBill";
             this.lblTotalBill.Size = new System.Drawing.Size(96, 24);
-            this.lblTotalBill.TabIndex = 7;
+            this.lblTotalBill.TabIndex = 9;
             this.lblTotalBill.Text = "Total Bill:";
             // 
             // lblTotalBillValue
@@ -111,10 +135,10 @@ namespace PL
             this.lblTotalBillValue.AutoSize = true;
             this.lblTotalBillValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalBillValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.lblTotalBillValue.Location = new System.Drawing.Point(200, 227);
+            this.lblTotalBillValue.Location = new System.Drawing.Point(200, 277);
             this.lblTotalBillValue.Name = "lblTotalBillValue";
             this.lblTotalBillValue.Size = new System.Drawing.Size(100, 29);
-            this.lblTotalBillValue.TabIndex = 8;
+            this.lblTotalBillValue.TabIndex = 10;
             this.lblTotalBillValue.Text = "0.00 JD";
             // 
             // btnSave
@@ -126,7 +150,7 @@ namespace PL
             this.btnSave.Location = new System.Drawing.Point(99, 332);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(153, 61);
-            this.btnSave.TabIndex = 9;
+            this.btnSave.TabIndex = 11;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -140,7 +164,7 @@ namespace PL
             this.btnCancel.Location = new System.Drawing.Point(312, 332);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(140, 63);
-            this.btnCancel.TabIndex = 10;
+            this.btnCancel.TabIndex = 12;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);

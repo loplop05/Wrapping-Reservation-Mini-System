@@ -17,12 +17,15 @@ namespace PL
         {
             this.lblPhone = new System.Windows.Forms.Label();
             this.txtPhone = new System.Windows.Forms.TextBox();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.lblName = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblBooksQty = new System.Windows.Forms.Label();
             this.nudBooksQty = new System.Windows.Forms.NumericUpDown();
             this.lblOtherPurchases = new System.Windows.Forms.Label();
             this.txtOtherPurchases = new System.Windows.Forms.TextBox();
+            this.lblPaymentMethod = new System.Windows.Forms.Label();
+            this.cmbPaymentMethod = new System.Windows.Forms.ComboBox();
             this.lblTotalBill = new System.Windows.Forms.Label();
             this.lblTotalBillValue = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
@@ -49,6 +52,20 @@ namespace PL
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(200, 36);
             this.txtPhone.TabIndex = 2;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.ForeColor = System.Drawing.Color.White;
+            this.btnSearch.Location = new System.Drawing.Point(430, 71);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(100, 36);
+            this.btnSearch.TabIndex = 3;
+            this.btnSearch.Text = "Search";
+            this.btnSearch.UseVisualStyleBackColor = false;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // lblName
             // 
@@ -112,14 +129,37 @@ namespace PL
             this.txtOtherPurchases.Text = "0";
             this.txtOtherPurchases.TextChanged += new System.EventHandler(this.txtOtherPurchases_TextChanged);
             // 
+            // lblPaymentMethod
+            // 
+            this.lblPaymentMethod.AutoSize = true;
+            this.lblPaymentMethod.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPaymentMethod.Location = new System.Drawing.Point(50, 280);
+            this.lblPaymentMethod.Name = "lblPaymentMethod";
+            this.lblPaymentMethod.Size = new System.Drawing.Size(130, 24);
+            this.lblPaymentMethod.TabIndex = 10;
+            this.lblPaymentMethod.Text = "Payment Method:";
+            // 
+            // cmbPaymentMethod
+            // 
+            this.cmbPaymentMethod.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbPaymentMethod.FormattingEnabled = true;
+            this.cmbPaymentMethod.Items.AddRange(new object[] {
+            "Cash",
+            "Visa"});
+            this.cmbPaymentMethod.Location = new System.Drawing.Point(224, 277);
+            this.cmbPaymentMethod.Name = "cmbPaymentMethod";
+            this.cmbPaymentMethod.Size = new System.Drawing.Size(120, 32);
+            this.cmbPaymentMethod.TabIndex = 11;
+            this.cmbPaymentMethod.Text = "Cash";
+            // 
             // lblTotalBill
             // 
             this.lblTotalBill.AutoSize = true;
             this.lblTotalBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalBill.Location = new System.Drawing.Point(37, 286);
+            this.lblTotalBill.Location = new System.Drawing.Point(37, 330);
             this.lblTotalBill.Name = "lblTotalBill";
             this.lblTotalBill.Size = new System.Drawing.Size(158, 39);
-            this.lblTotalBill.TabIndex = 10;
+            this.lblTotalBill.TabIndex = 12;
             this.lblTotalBill.Text = "Total Bill:";
             // 
             // lblTotalBillValue
@@ -127,10 +167,10 @@ namespace PL
             this.lblTotalBillValue.AutoSize = true;
             this.lblTotalBillValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalBillValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.lblTotalBillValue.Location = new System.Drawing.Point(241, 286);
+            this.lblTotalBillValue.Location = new System.Drawing.Point(241, 330);
             this.lblTotalBillValue.Name = "lblTotalBillValue";
             this.lblTotalBillValue.Size = new System.Drawing.Size(134, 39);
-            this.lblTotalBillValue.TabIndex = 11;
+            this.lblTotalBillValue.TabIndex = 13;
             this.lblTotalBillValue.Text = "0.00 JD";
             // 
             // btnSave
@@ -142,7 +182,7 @@ namespace PL
             this.btnSave.Location = new System.Drawing.Point(61, 350);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(150, 45);
-            this.btnSave.TabIndex = 12;
+            this.btnSave.TabIndex = 14;
             this.btnSave.Text = "Save Reservation";
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -156,7 +196,7 @@ namespace PL
             this.btnClear.Location = new System.Drawing.Point(248, 350);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(100, 45);
-            this.btnClear.TabIndex = 13;
+            this.btnClear.TabIndex = 15;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
@@ -170,7 +210,7 @@ namespace PL
             this.btnClose.Location = new System.Drawing.Point(406, 350);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(100, 45);
-            this.btnClose.TabIndex = 14;
+            this.btnClose.TabIndex = 16;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -196,6 +236,8 @@ namespace PL
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblTotalBillValue);
             this.Controls.Add(this.lblTotalBill);
+            this.Controls.Add(this.cmbPaymentMethod);
+            this.Controls.Add(this.lblPaymentMethod);
             this.Controls.Add(this.txtOtherPurchases);
             this.Controls.Add(this.lblOtherPurchases);
             this.Controls.Add(this.nudBooksQty);
@@ -203,6 +245,7 @@ namespace PL
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.txtPhone);
+            this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.lblPhone);
             this.Controls.Add(this.lblTitle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -219,12 +262,15 @@ namespace PL
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblPhone;
         private System.Windows.Forms.TextBox txtPhone;
+        private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label lblBooksQty;
         private System.Windows.Forms.NumericUpDown nudBooksQty;
         private System.Windows.Forms.Label lblOtherPurchases;
         private System.Windows.Forms.TextBox txtOtherPurchases;
+        private System.Windows.Forms.Label lblPaymentMethod;
+        private System.Windows.Forms.ComboBox cmbPaymentMethod;
         private System.Windows.Forms.Label lblTotalBill;
         private System.Windows.Forms.Label lblTotalBillValue;
         private System.Windows.Forms.Button btnSave;

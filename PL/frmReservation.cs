@@ -148,7 +148,8 @@ namespace PL
 
             try
             {
-                bool success = orderBLL.CreateOrder(currentCustomerId, booksQty, otherPurchases, "Pending");
+                string paymentMethod = cmbPaymentMethod.Text;
+                bool success = orderBLL.CreateOrder(currentCustomerId, booksQty, otherPurchases, "Pending", paymentMethod);
 
                 if (success)
                 {
@@ -178,6 +179,7 @@ namespace PL
             txtName.ReadOnly = false;
             nudBooksQty.Value = 1;
             txtOtherPurchases.Text = "0";
+            cmbPaymentMethod.Text = "Cash";
             lblTotalBill.Text = "0.00 JD";
             currentCustomerId = -1;
             txtPhone.Focus();
