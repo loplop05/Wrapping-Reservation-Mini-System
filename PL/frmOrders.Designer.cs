@@ -34,7 +34,7 @@ namespace PL
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.Location = new System.Drawing.Point(200, 10);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(300, 31);
+            this.lblTitle.Size = new System.Drawing.Size(278, 31);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Orders Management";
             // 
@@ -68,12 +68,13 @@ namespace PL
             this.dgvOrders.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvOrders.BackgroundColor = System.Drawing.Color.White;
             this.dgvOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvOrders.Location = new System.Drawing.Point(50, 100);
+            this.dgvOrders.Location = new System.Drawing.Point(26, 100);
             this.dgvOrders.Name = "dgvOrders";
             this.dgvOrders.ReadOnly = true;
             this.dgvOrders.RowHeadersVisible = false;
+            this.dgvOrders.RowHeadersWidth = 51;
             this.dgvOrders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOrders.Size = new System.Drawing.Size(700, 300);
+            this.dgvOrders.Size = new System.Drawing.Size(943, 412);
             this.dgvOrders.TabIndex = 3;
             // 
             // btnRefresh
@@ -82,7 +83,7 @@ namespace PL
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRefresh.ForeColor = System.Drawing.Color.White;
-            this.btnRefresh.Location = new System.Drawing.Point(50, 420);
+            this.btnRefresh.Location = new System.Drawing.Point(113, 550);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(100, 35);
             this.btnRefresh.TabIndex = 4;
@@ -96,7 +97,7 @@ namespace PL
             this.btnAddReservation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddReservation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddReservation.ForeColor = System.Drawing.Color.White;
-            this.btnAddReservation.Location = new System.Drawing.Point(165, 420);
+            this.btnAddReservation.Location = new System.Drawing.Point(228, 550);
             this.btnAddReservation.Name = "btnAddReservation";
             this.btnAddReservation.Size = new System.Drawing.Size(100, 35);
             this.btnAddReservation.TabIndex = 5;
@@ -110,7 +111,7 @@ namespace PL
             this.btnEditOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEditOrder.ForeColor = System.Drawing.Color.White;
-            this.btnEditOrder.Location = new System.Drawing.Point(280, 420);
+            this.btnEditOrder.Location = new System.Drawing.Point(343, 550);
             this.btnEditOrder.Name = "btnEditOrder";
             this.btnEditOrder.Size = new System.Drawing.Size(100, 35);
             this.btnEditOrder.TabIndex = 6;
@@ -124,7 +125,7 @@ namespace PL
             this.btnDeleteOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeleteOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteOrder.ForeColor = System.Drawing.Color.White;
-            this.btnDeleteOrder.Location = new System.Drawing.Point(395, 420);
+            this.btnDeleteOrder.Location = new System.Drawing.Point(458, 550);
             this.btnDeleteOrder.Name = "btnDeleteOrder";
             this.btnDeleteOrder.Size = new System.Drawing.Size(100, 35);
             this.btnDeleteOrder.TabIndex = 7;
@@ -138,7 +139,7 @@ namespace PL
             this.btnChangeStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnChangeStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChangeStatus.ForeColor = System.Drawing.Color.White;
-            this.btnChangeStatus.Location = new System.Drawing.Point(510, 420);
+            this.btnChangeStatus.Location = new System.Drawing.Point(573, 550);
             this.btnChangeStatus.Name = "btnChangeStatus";
             this.btnChangeStatus.Size = new System.Drawing.Size(120, 35);
             this.btnChangeStatus.TabIndex = 8;
@@ -152,7 +153,7 @@ namespace PL
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(650, 420);
+            this.btnClose.Location = new System.Drawing.Point(713, 550);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(100, 35);
             this.btnClose.TabIndex = 9;
@@ -165,7 +166,7 @@ namespace PL
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(800, 480);
+            this.ClientSize = new System.Drawing.Size(1000, 620);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnChangeStatus);
             this.Controls.Add(this.btnDeleteOrder);
@@ -184,6 +185,7 @@ namespace PL
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrders)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.Label lblTitle;

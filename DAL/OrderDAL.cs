@@ -13,17 +13,18 @@ namespace DAL
             dataAccess = new DataAccess();
         }
 
-        public int InsertOrder(int customerId, int booksQty, decimal otherPurchasesAmount, decimal totalBill, string status)
+        public int InsertOrder(int customerId, int booksQty, decimal otherPurchasesAmount, decimal totalBill, string status, string paymentMethod)
         {
-            string query = @"INSERT INTO Orders (CustomerID, BooksQty, OtherPurchasesAmount, TotalBill, Status) 
-                            VALUES (@CustomerID, @BooksQty, @OtherPurchasesAmount, @TotalBill, @Status)";
+            string query = @"INSERT INTO Orders (CustomerID, BooksQty, OtherPurchasesAmount, TotalBill, Status, PaymentMethod) 
+                            VALUES (@CustomerID, @BooksQty, @OtherPurchasesAmount, @TotalBill, @Status, @PaymentMethod)";
             SqlParameter[] parameters = new SqlParameter[]
             {
                 new SqlParameter("@CustomerID", customerId),
                 new SqlParameter("@BooksQty", booksQty),
                 new SqlParameter("@OtherPurchasesAmount", otherPurchasesAmount),
                 new SqlParameter("@TotalBill", totalBill),
-                new SqlParameter("@Status", status)
+                new SqlParameter("@Status", status),
+                new SqlParameter("@PaymentMethod", paymentMethod)
             };
             return dataAccess.ExecuteNonQuery(query, parameters);
         }
@@ -31,7 +32,7 @@ namespace DAL
         public DataTable GetAllOrders()
         {
             string query = @"SELECT o.OrderID, c.Name AS CustomerName, c.Phone, o.BooksQty, 
-                            o.OtherPurchasesAmount, o.TotalBill, o.OrderDate, o.Status 
+                            o.OtherPurchasesAmount, o.TotalBill, o.OrderDate, o.Status, o.PaymentMethod
                             FROM Orders o 
                             INNER JOIN Customers c ON o.CustomerID = c.CustomerID 
                             ORDER BY o.OrderDate DESC";
@@ -41,7 +42,7 @@ namespace DAL
         public DataTable GetOrderById(int orderId)
         {
             string query = @"SELECT o.OrderID, c.Name AS CustomerName, c.Phone, o.BooksQty, 
-                            o.OtherPurchasesAmount, o.TotalBill, o.OrderDate, o.Status, o.CustomerID
+                            o.OtherPurchasesAmount, o.TotalBill, o.OrderDate, o.Status, o.PaymentMethod, o.CustomerID
                             FROM Orders o 
                             INNER JOIN Customers c ON o.CustomerID = c.CustomerID 
                             WHERE o.OrderID = @OrderID";
