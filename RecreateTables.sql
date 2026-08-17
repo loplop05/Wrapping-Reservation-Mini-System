@@ -1,13 +1,16 @@
--- Library Book Wrapping Reservation System Database Schema
--- Run this script in SQL Server to create the database and tables
-
-CREATE DATABASE InventoryDB;
-GO
-
+-- Drop existing tables if they exist (this will delete any data!)
 USE InventoryDB;
 GO
 
--- Customers Table
+IF EXISTS (SELECT * FROM sys.tables WHERE name = 'Orders')
+    DROP TABLE Orders;
+GO
+
+IF EXISTS (SELECT * FROM sys.tables WHERE name = 'Customers')
+    DROP TABLE Customers;
+GO
+
+-- Create Customers Table
 CREATE TABLE Customers
 (
     CustomerID INT IDENTITY(1,1) PRIMARY KEY,
@@ -16,7 +19,7 @@ CREATE TABLE Customers
 );
 GO
 
--- Orders Table
+-- Create Orders Table
 CREATE TABLE Orders
 (
     OrderID INT IDENTITY(1,1) PRIMARY KEY,
@@ -42,8 +45,13 @@ CREATE TABLE Orders
 );
 GO
 
--- Insert sample data for testing (optional)
--- INSERT INTO Customers (Phone, Name) VALUES ('0791234567', 'Ahmad');
--- INSERT INTO Orders (CustomerID, BooksQty, OtherPurchasesAmount, TotalBill, Status) 
--- VALUES (1, 5, 3.50, 8.50, 'Pending');
--- GO
+PRINT 'Tables created successfully!';
+GO
+
+-- Verify the tables were created
+SELECT TABLE_NAME 
+FROM INFORMATION_SCHEMA.TABLES 
+WHERE TABLE_TYPE = 'BASE TABLE'
+AND TABLE_NAME IN ('Customers', 'Orders')
+ORDER BY TABLE_NAME;
+GO

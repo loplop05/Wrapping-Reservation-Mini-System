@@ -29,30 +29,20 @@ namespace PL
             ((System.ComponentModel.ISupportInitialize)(this.nudBooksQty)).BeginInit();
             this.SuspendLayout();
             // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(150, 20);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(200, 31);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Edit Order";
-            // 
             // lblBooksQty
             // 
             this.lblBooksQty.AutoSize = true;
             this.lblBooksQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBooksQty.Location = new System.Drawing.Point(50, 80);
             this.lblBooksQty.Name = "lblBooksQty";
-            this.lblBooksQty.Size = new System.Drawing.Size(130, 24);
+            this.lblBooksQty.Size = new System.Drawing.Size(161, 24);
             this.lblBooksQty.TabIndex = 1;
             this.lblBooksQty.Text = "Number of Books:";
             // 
             // nudBooksQty
             // 
             this.nudBooksQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudBooksQty.Location = new System.Drawing.Point(200, 77);
+            this.nudBooksQty.Location = new System.Drawing.Point(291, 80);
             this.nudBooksQty.Name = "nudBooksQty";
             this.nudBooksQty.Size = new System.Drawing.Size(120, 28);
             this.nudBooksQty.TabIndex = 2;
@@ -69,14 +59,14 @@ namespace PL
             this.lblOtherPurchases.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOtherPurchases.Location = new System.Drawing.Point(50, 130);
             this.lblOtherPurchases.Name = "lblOtherPurchases";
-            this.lblOtherPurchases.Size = new System.Drawing.Size(130, 24);
+            this.lblOtherPurchases.Size = new System.Drawing.Size(156, 24);
             this.lblOtherPurchases.TabIndex = 3;
             this.lblOtherPurchases.Text = "Other Purchases:";
             // 
             // txtOtherPurchases
             // 
             this.txtOtherPurchases.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOtherPurchases.Location = new System.Drawing.Point(200, 127);
+            this.txtOtherPurchases.Location = new System.Drawing.Point(291, 130);
             this.txtOtherPurchases.Name = "txtOtherPurchases";
             this.txtOtherPurchases.Size = new System.Drawing.Size(120, 28);
             this.txtOtherPurchases.TabIndex = 4;
@@ -88,7 +78,7 @@ namespace PL
             this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStatus.Location = new System.Drawing.Point(50, 180);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(60, 24);
+            this.lblStatus.Size = new System.Drawing.Size(65, 24);
             this.lblStatus.TabIndex = 5;
             this.lblStatus.Text = "Status:";
             // 
@@ -101,9 +91,9 @@ namespace PL
             "Ready",
             "Completed",
             "Cancelled"});
-            this.cmbStatus.Location = new System.Drawing.Point(200, 177);
+            this.cmbStatus.Location = new System.Drawing.Point(273, 177);
             this.cmbStatus.Name = "cmbStatus";
-            this.cmbStatus.Size = new System.Drawing.Size(150, 32);
+            this.cmbStatus.Size = new System.Drawing.Size(150, 30);
             this.cmbStatus.TabIndex = 6;
             // 
             // lblTotalBill
@@ -112,7 +102,7 @@ namespace PL
             this.lblTotalBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalBill.Location = new System.Drawing.Point(50, 230);
             this.lblTotalBill.Name = "lblTotalBill";
-            this.lblTotalBill.Size = new System.Drawing.Size(100, 24);
+            this.lblTotalBill.Size = new System.Drawing.Size(96, 24);
             this.lblTotalBill.TabIndex = 7;
             this.lblTotalBill.Text = "Total Bill:";
             // 
@@ -123,7 +113,7 @@ namespace PL
             this.lblTotalBillValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.lblTotalBillValue.Location = new System.Drawing.Point(200, 227);
             this.lblTotalBillValue.Name = "lblTotalBillValue";
-            this.lblTotalBillValue.Size = new System.Drawing.Size(80, 29);
+            this.lblTotalBillValue.Size = new System.Drawing.Size(100, 29);
             this.lblTotalBillValue.TabIndex = 8;
             this.lblTotalBillValue.Text = "0.00 JD";
             // 
@@ -133,9 +123,9 @@ namespace PL
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(100, 290);
+            this.btnSave.Location = new System.Drawing.Point(99, 332);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(120, 45);
+            this.btnSave.Size = new System.Drawing.Size(153, 61);
             this.btnSave.TabIndex = 9;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = false;
@@ -147,20 +137,30 @@ namespace PL
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.ForeColor = System.Drawing.Color.White;
-            this.btnCancel.Location = new System.Drawing.Point(250, 290);
+            this.btnCancel.Location = new System.Drawing.Point(312, 332);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(120, 45);
+            this.btnCancel.Size = new System.Drawing.Size(140, 63);
             this.btnCancel.TabIndex = 10;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Location = new System.Drawing.Point(150, 20);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(147, 31);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "Edit Order";
             // 
             // frmEditOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(400, 370);
+            this.ClientSize = new System.Drawing.Size(547, 422);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblTotalBillValue);
@@ -180,6 +180,7 @@ namespace PL
             ((System.ComponentModel.ISupportInitialize)(this.nudBooksQty)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.Label lblTitle;

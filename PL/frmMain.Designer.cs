@@ -27,7 +27,7 @@ namespace PL
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.Location = new System.Drawing.Point(150, 50);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(400, 36);
+            this.lblTitle.Size = new System.Drawing.Size(455, 36);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Library Book Wrapping System";
             // 
@@ -37,9 +37,9 @@ namespace PL
             this.btnAddReservation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddReservation.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddReservation.ForeColor = System.Drawing.Color.White;
-            this.btnAddReservation.Location = new System.Drawing.Point(200, 150);
+            this.btnAddReservation.Location = new System.Drawing.Point(200, 119);
             this.btnAddReservation.Name = "btnAddReservation";
-            this.btnAddReservation.Size = new System.Drawing.Size(300, 60);
+            this.btnAddReservation.Size = new System.Drawing.Size(300, 91);
             this.btnAddReservation.TabIndex = 1;
             this.btnAddReservation.Text = "Add Reservation";
             this.btnAddReservation.UseVisualStyleBackColor = false;
@@ -51,9 +51,9 @@ namespace PL
             this.btnCheckStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCheckStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCheckStatus.ForeColor = System.Drawing.Color.White;
-            this.btnCheckStatus.Location = new System.Drawing.Point(200, 240);
+            this.btnCheckStatus.Location = new System.Drawing.Point(200, 235);
             this.btnCheckStatus.Name = "btnCheckStatus";
-            this.btnCheckStatus.Size = new System.Drawing.Size(300, 60);
+            this.btnCheckStatus.Size = new System.Drawing.Size(300, 89);
             this.btnCheckStatus.TabIndex = 2;
             this.btnCheckStatus.Text = "Check Status";
             this.btnCheckStatus.UseVisualStyleBackColor = false;
@@ -65,7 +65,7 @@ namespace PL
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.Color.White;
-            this.btnExit.Location = new System.Drawing.Point(200, 330);
+            this.btnExit.Location = new System.Drawing.Point(200, 374);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(300, 50);
             this.btnExit.TabIndex = 3;
@@ -90,6 +90,7 @@ namespace PL
             this.Text = "Library Book Wrapping System";
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.Label lblTitle;

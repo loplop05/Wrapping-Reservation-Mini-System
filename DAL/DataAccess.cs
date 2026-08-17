@@ -7,7 +7,7 @@ namespace DAL
     public class DataAccess
     {
         // Update this connection string according to your SQL Server configuration
-        private string connectionString = "Server=localhost;Database=LibraryBookWrapping;Trusted_Connection=True;";
+        public static string connectionString = "Server = .;Database = InventoryDB;User ID = sa ; Password = 123456;";
 
         public SqlConnection GetConnection()
         {
