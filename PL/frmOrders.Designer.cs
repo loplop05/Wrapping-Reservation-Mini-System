@@ -18,14 +18,24 @@ namespace PL
             this.lblTitle = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.dgvOrders = new System.Windows.Forms.DataGridView();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabPending = new System.Windows.Forms.TabPage();
+            this.dgvPending = new System.Windows.Forms.DataGridView();
+            this.tabCompleted = new System.Windows.Forms.TabPage();
+            this.dgvCompleted = new System.Windows.Forms.DataGridView();
+            this.contextMenu = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenuEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuChangeStatus = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnAddReservation = new System.Windows.Forms.Button();
-            this.btnEditOrder = new System.Windows.Forms.Button();
-            this.btnDeleteOrder = new System.Windows.Forms.Button();
-            this.btnChangeStatus = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvOrders)).BeginInit();
+            this.tabControl.SuspendLayout();
+            this.tabPending.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPending)).BeginInit();
+            this.tabCompleted.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCompleted)).BeginInit();
+            this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -34,7 +44,7 @@ namespace PL
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.Location = new System.Drawing.Point(200, 10);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(278, 31);
+            this.lblTitle.Size = new System.Drawing.Size(300, 31);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Orders Management";
             // 
@@ -61,21 +71,102 @@ namespace PL
             this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // dgvOrders
+            // tabControl
             // 
-            this.dgvOrders.AllowUserToAddRows = false;
-            this.dgvOrders.AllowUserToDeleteRows = false;
-            this.dgvOrders.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvOrders.BackgroundColor = System.Drawing.Color.White;
-            this.dgvOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvOrders.Location = new System.Drawing.Point(26, 100);
-            this.dgvOrders.Name = "dgvOrders";
-            this.dgvOrders.ReadOnly = true;
-            this.dgvOrders.RowHeadersVisible = false;
-            this.dgvOrders.RowHeadersWidth = 51;
-            this.dgvOrders.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvOrders.Size = new System.Drawing.Size(943, 412);
-            this.dgvOrders.TabIndex = 3;
+            this.tabControl.Controls.Add(this.tabPending);
+            this.tabControl.Controls.Add(this.tabCompleted);
+            this.tabControl.Location = new System.Drawing.Point(50, 100);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(700, 300);
+            this.tabControl.TabIndex = 3;
+            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
+            // 
+            // tabPending
+            // 
+            this.tabPending.Controls.Add(this.dgvPending);
+            this.tabPending.Location = new System.Drawing.Point(4, 29);
+            this.tabPending.Name = "tabPending";
+            this.tabPending.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPending.Size = new System.Drawing.Size(692, 267);
+            this.tabPending.TabIndex = 0;
+            this.tabPending.Text = "Pending Orders";
+            this.tabPending.UseVisualStyleBackColor = true;
+            // 
+            // dgvPending
+            // 
+            this.dgvPending.AllowUserToAddRows = false;
+            this.dgvPending.AllowUserToDeleteRows = false;
+            this.dgvPending.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvPending.BackgroundColor = System.Drawing.Color.White;
+            this.dgvPending.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPending.ContextMenuStrip = this.contextMenu;
+            this.dgvPending.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvPending.Location = new System.Drawing.Point(3, 3);
+            this.dgvPending.Name = "dgvPending";
+            this.dgvPending.ReadOnly = true;
+            this.dgvPending.RowHeadersVisible = false;
+            this.dgvPending.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvPending.Size = new System.Drawing.Size(686, 261);
+            this.dgvPending.TabIndex = 0;
+            // 
+            // tabCompleted
+            // 
+            this.tabCompleted.Controls.Add(this.dgvCompleted);
+            this.tabCompleted.Location = new System.Drawing.Point(4, 29);
+            this.tabCompleted.Name = "tabCompleted";
+            this.tabCompleted.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCompleted.Size = new System.Drawing.Size(692, 267);
+            this.tabCompleted.TabIndex = 1;
+            this.tabCompleted.Text = "Completed Orders";
+            this.tabCompleted.UseVisualStyleBackColor = true;
+            // 
+            // dgvCompleted
+            // 
+            this.dgvCompleted.AllowUserToAddRows = false;
+            this.dgvCompleted.AllowUserToDeleteRows = false;
+            this.dgvCompleted.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvCompleted.BackgroundColor = System.Drawing.Color.White;
+            this.dgvCompleted.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCompleted.ContextMenuStrip = this.contextMenu;
+            this.dgvCompleted.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvCompleted.Location = new System.Drawing.Point(3, 3);
+            this.dgvCompleted.Name = "dgvCompleted";
+            this.dgvCompleted.ReadOnly = true;
+            this.dgvCompleted.RowHeadersVisible = false;
+            this.dgvCompleted.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvCompleted.Size = new System.Drawing.Size(686, 261);
+            this.dgvCompleted.TabIndex = 0;
+            // 
+            // contextMenu
+            // 
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuEdit,
+            this.contextMenuDelete,
+            this.contextMenuChangeStatus});
+            this.contextMenu.Name = "contextMenu";
+            this.contextMenu.Size = new System.Drawing.Size(153, 92);
+            // 
+            // contextMenuEdit
+            // 
+            this.contextMenuEdit.Name = "contextMenuEdit";
+            this.contextMenuEdit.Size = new System.Drawing.Size(152, 24);
+            this.contextMenuEdit.Text = "Edit";
+            this.contextMenuEdit.Click += new System.EventHandler(this.contextMenuEdit_Click);
+            // 
+            // contextMenuDelete
+            // 
+            this.contextMenuDelete.Name = "contextMenuDelete";
+            this.contextMenuDelete.Size = new System.Drawing.Size(152, 24);
+            this.contextMenuDelete.Text = "Delete";
+            this.contextMenuDelete.Click += new System.EventHandler(this.contextMenuDelete_Click);
+            // 
+            // contextMenuChangeStatus
+            // 
+            this.contextMenuChangeStatus.Name = "contextMenuChangeStatus";
+            this.contextMenuChangeStatus.Size = new System.Drawing.Size(152, 24);
+            this.contextMenuChangeStatus.Text = "Change Status";
+            this.contextMenuChangeStatus.Click += new System.EventHandler(this.contextMenuChangeStatus_Click);
             // 
             // btnRefresh
             // 
@@ -83,7 +174,7 @@ namespace PL
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRefresh.ForeColor = System.Drawing.Color.White;
-            this.btnRefresh.Location = new System.Drawing.Point(113, 550);
+            this.btnRefresh.Location = new System.Drawing.Point(50, 420);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(100, 35);
             this.btnRefresh.TabIndex = 4;
@@ -97,7 +188,7 @@ namespace PL
             this.btnAddReservation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddReservation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddReservation.ForeColor = System.Drawing.Color.White;
-            this.btnAddReservation.Location = new System.Drawing.Point(228, 550);
+            this.btnAddReservation.Location = new System.Drawing.Point(165, 420);
             this.btnAddReservation.Name = "btnAddReservation";
             this.btnAddReservation.Size = new System.Drawing.Size(100, 35);
             this.btnAddReservation.TabIndex = 5;
@@ -105,58 +196,16 @@ namespace PL
             this.btnAddReservation.UseVisualStyleBackColor = false;
             this.btnAddReservation.Click += new System.EventHandler(this.btnAddReservation_Click);
             // 
-            // btnEditOrder
-            // 
-            this.btnEditOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
-            this.btnEditOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEditOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditOrder.ForeColor = System.Drawing.Color.White;
-            this.btnEditOrder.Location = new System.Drawing.Point(343, 550);
-            this.btnEditOrder.Name = "btnEditOrder";
-            this.btnEditOrder.Size = new System.Drawing.Size(100, 35);
-            this.btnEditOrder.TabIndex = 6;
-            this.btnEditOrder.Text = "Edit";
-            this.btnEditOrder.UseVisualStyleBackColor = false;
-            this.btnEditOrder.Click += new System.EventHandler(this.btnEditOrder_Click);
-            // 
-            // btnDeleteOrder
-            // 
-            this.btnDeleteOrder.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.btnDeleteOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteOrder.ForeColor = System.Drawing.Color.White;
-            this.btnDeleteOrder.Location = new System.Drawing.Point(458, 550);
-            this.btnDeleteOrder.Name = "btnDeleteOrder";
-            this.btnDeleteOrder.Size = new System.Drawing.Size(100, 35);
-            this.btnDeleteOrder.TabIndex = 7;
-            this.btnDeleteOrder.Text = "Delete";
-            this.btnDeleteOrder.UseVisualStyleBackColor = false;
-            this.btnDeleteOrder.Click += new System.EventHandler(this.btnDeleteOrder_Click);
-            // 
-            // btnChangeStatus
-            // 
-            this.btnChangeStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(39)))), ((int)(((byte)(176)))));
-            this.btnChangeStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnChangeStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnChangeStatus.ForeColor = System.Drawing.Color.White;
-            this.btnChangeStatus.Location = new System.Drawing.Point(573, 550);
-            this.btnChangeStatus.Name = "btnChangeStatus";
-            this.btnChangeStatus.Size = new System.Drawing.Size(120, 35);
-            this.btnChangeStatus.TabIndex = 8;
-            this.btnChangeStatus.Text = "Change Status";
-            this.btnChangeStatus.UseVisualStyleBackColor = false;
-            this.btnChangeStatus.Click += new System.EventHandler(this.btnChangeStatus_Click);
-            // 
             // btnClose
             // 
-            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
+            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(713, 550);
+            this.btnClose.Location = new System.Drawing.Point(650, 420);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(100, 35);
-            this.btnClose.TabIndex = 9;
+            this.btnClose.TabIndex = 6;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -166,14 +215,11 @@ namespace PL
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1000, 620);
+            this.ClientSize = new System.Drawing.Size(800, 480);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.btnChangeStatus);
-            this.Controls.Add(this.btnDeleteOrder);
-            this.Controls.Add(this.btnEditOrder);
             this.Controls.Add(this.btnAddReservation);
             this.Controls.Add(this.btnRefresh);
-            this.Controls.Add(this.dgvOrders);
+            this.Controls.Add(this.tabControl);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.lblTitle);
@@ -182,21 +228,30 @@ namespace PL
             this.Name = "frmOrders";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Orders Management";
-            ((System.ComponentModel.ISupportInitialize)(this.dgvOrders)).EndInit();
+            this.tabControl.ResumeLayout(false);
+            this.tabPending.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPending)).EndInit();
+            this.tabCompleted.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCompleted)).EndInit();
+            this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.DataGridView dgvOrders;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage tabPending;
+        private System.Windows.Forms.DataGridView dgvPending;
+        private System.Windows.Forms.TabPage tabCompleted;
+        private System.Windows.Forms.DataGridView dgvCompleted;
+        private System.Windows.Forms.ContextMenuStrip contextMenu;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuEdit;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuDelete;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuChangeStatus;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnAddReservation;
-        private System.Windows.Forms.Button btnEditOrder;
-        private System.Windows.Forms.Button btnDeleteOrder;
-        private System.Windows.Forms.Button btnChangeStatus;
         private System.Windows.Forms.Button btnClose;
     }
 }

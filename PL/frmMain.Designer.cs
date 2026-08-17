@@ -18,6 +18,7 @@ namespace PL
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnAddReservation = new System.Windows.Forms.Button();
             this.btnCheckStatus = new System.Windows.Forms.Button();
+            this.btnEndOfDay = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -59,16 +60,30 @@ namespace PL
             this.btnCheckStatus.UseVisualStyleBackColor = false;
             this.btnCheckStatus.Click += new System.EventHandler(this.btnCheckStatus_Click);
             // 
+            // btnEndOfDay
+            // 
+            this.btnEndOfDay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
+            this.btnEndOfDay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEndOfDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEndOfDay.ForeColor = System.Drawing.Color.White;
+            this.btnEndOfDay.Location = new System.Drawing.Point(200, 340);
+            this.btnEndOfDay.Name = "btnEndOfDay";
+            this.btnEndOfDay.Size = new System.Drawing.Size(300, 65);
+            this.btnEndOfDay.TabIndex = 3;
+            this.btnEndOfDay.Text = "End of Day Report";
+            this.btnEndOfDay.UseVisualStyleBackColor = false;
+            this.btnEndOfDay.Click += new System.EventHandler(this.btnEndOfDay_Click);
+            // 
             // btnExit
             // 
             this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(198)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.Color.White;
-            this.btnExit.Location = new System.Drawing.Point(200, 374);
+            this.btnExit.Location = new System.Drawing.Point(200, 420);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(300, 50);
-            this.btnExit.TabIndex = 3;
+            this.btnExit.TabIndex = 4;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = false;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
@@ -80,6 +95,7 @@ namespace PL
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(700, 450);
             this.Controls.Add(this.btnExit);
+            this.Controls.Add(this.btnEndOfDay);
             this.Controls.Add(this.btnCheckStatus);
             this.Controls.Add(this.btnAddReservation);
             this.Controls.Add(this.lblTitle);
@@ -96,6 +112,7 @@ namespace PL
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Button btnAddReservation;
         private System.Windows.Forms.Button btnCheckStatus;
+        private System.Windows.Forms.Button btnEndOfDay;
         private System.Windows.Forms.Button btnExit;
     }
 }

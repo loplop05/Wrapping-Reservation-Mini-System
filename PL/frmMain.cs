@@ -27,5 +27,11 @@ namespace PL
         {
             Application.Exit();
         }
+
+        private void btnEndOfDay_Click(object sender, EventArgs e)
+        {
+            frmEndOfDay endOfDayForm = new frmEndOfDay();
+            endOfDayForm.ShowDialog();
+        }
     }
 }

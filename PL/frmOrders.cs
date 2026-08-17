@@ -13,43 +13,67 @@ namespace PL
         {
             InitializeComponent();
             orderBLL = new OrderBLL();
-            LoadOrders();
+            LoadPendingOrders();
+            LoadCompletedOrders();
         }
 
-        private void LoadOrders()
+        private void LoadPendingOrders()
         {
             try
             {
-                DataTable orders = orderBLL.GetAllOrders();
-                dgvOrders.DataSource = orders;
-
-                // Format the DataGridView
-                dgvOrders.Columns["OrderID"].HeaderText = "Order ID";
-                dgvOrders.Columns["CustomerName"].HeaderText = "Customer Name";
-                dgvOrders.Columns["Phone"].HeaderText = "Phone";
-                dgvOrders.Columns["BooksQty"].HeaderText = "Books Qty";
-                dgvOrders.Columns["OtherPurchasesAmount"].HeaderText = "Other Purchases";
-                dgvOrders.Columns["TotalBill"].HeaderText = "Total Bill";
-                dgvOrders.Columns["OrderDate"].HeaderText = "Order Date";
-                dgvOrders.Columns["Status"].HeaderText = "Status";
-
-                // Format columns
-                dgvOrders.Columns["OtherPurchasesAmount"].DefaultCellStyle.Format = "F2";
-                dgvOrders.Columns["TotalBill"].DefaultCellStyle.Format = "F2";
-                dgvOrders.Columns["OrderDate"].DefaultCellStyle.Format = "yyyy-MM-dd HH:mm";
-
-                // Auto-size columns
-                dgvOrders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                DataTable orders = orderBLL.GetOrdersByStatus("Pending");
+                dgvPending.DataSource = orders;
+                FormatDataGridView(dgvPending);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading orders: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error loading pending orders: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadCompletedOrders()
+        {
+            try
+            {
+                DataTable orders = orderBLL.GetOrdersByStatus("Completed");
+                dgvCompleted.DataSource = orders;
+                FormatDataGridView(dgvCompleted);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading completed orders: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void FormatDataGridView(DataGridView dgv)
+        {
+            // Format the DataGridView
+            if (dgv.Columns.Count > 0)
+            {
+                dgv.Columns["OrderID"].HeaderText = "Order ID";
+                dgv.Columns["CustomerName"].HeaderText = "Customer Name";
+                dgv.Columns["Phone"].HeaderText = "Phone";
+                dgv.Columns["BooksQty"].HeaderText = "Books Qty";
+                dgv.Columns["OtherPurchasesAmount"].HeaderText = "Other Purchases";
+                dgv.Columns["TotalBill"].HeaderText = "Total Bill";
+                dgv.Columns["OrderDate"].HeaderText = "Order Date";
+                dgv.Columns["Status"].HeaderText = "Status";
+                dgv.Columns["PaymentMethod"].HeaderText = "Payment";
+
+                // Format columns
+                dgv.Columns["OtherPurchasesAmount"].DefaultCellStyle.Format = "F2";
+                dgv.Columns["TotalBill"].DefaultCellStyle.Format = "F2";
+                dgv.Columns["OrderDate"].DefaultCellStyle.Format = "yyyy-MM-dd HH:mm";
+
+                // Auto-size columns
+                dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            LoadOrders();
+            LoadPendingOrders();
+            LoadCompletedOrders();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -58,19 +82,21 @@ namespace PL
 
             if (string.IsNullOrEmpty(searchTerm))
             {
-                LoadOrders();
+                LoadPendingOrders();
+                LoadCompletedOrders();
                 return;
             }
 
             try
             {
                 DataTable orders = orderBLL.SearchOrders(searchTerm);
-                dgvOrders.DataSource = orders;
-
-                // Apply same formatting
-                dgvOrders.Columns["OtherPurchasesAmount"].DefaultCellStyle.Format = "F2";
-                dgvOrders.Columns["TotalBill"].DefaultCellStyle.Format = "F2";
-                dgvOrders.Columns["OrderDate"].DefaultCellStyle.Format = "yyyy-MM-dd HH:mm";
+                
+                // Show in both tabs for search results
+                dgvPending.DataSource = orders;
+                dgvCompleted.DataSource = orders;
+                
+                FormatDataGridView(dgvPending);
+                FormatDataGridView(dgvCompleted);
             }
             catch (Exception ex)
             {
@@ -83,23 +109,34 @@ namespace PL
             frmReservation reservationForm = new frmReservation();
             if (reservationForm.ShowDialog() == DialogResult.OK)
             {
-                LoadOrders();
+                LoadPendingOrders();
+                LoadCompletedOrders();
             }
             else
             {
-                LoadOrders();
+                LoadPendingOrders();
+                LoadCompletedOrders();
             }
         }
 
-        private void btnEditOrder_Click(object sender, EventArgs e)
+        private void contextMenuEdit_Click(object sender, EventArgs e)
         {
-            if (dgvOrders.SelectedRows.Count == 0)
+            DataGridView dgv = GetCurrentDataGridView();
+            if (dgv.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Please select an order to edit.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            int orderId = Convert.ToInt32(dgvOrders.SelectedRows[0].Cells["OrderID"].Value);
+            int orderId = Convert.ToInt32(dgv.SelectedRows[0].Cells["OrderID"].Value);
+            string status = dgv.SelectedRows[0].Cells["Status"].Value.ToString();
+
+            // Check if order is completed
+            if (status.Equals("Completed", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("Completed orders cannot be edited.", "Edit Not Allowed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             try
             {
@@ -110,7 +147,8 @@ namespace PL
                     frmEditOrder editForm = new frmEditOrder(orderId);
                     if (editForm.ShowDialog() == DialogResult.OK)
                     {
-                        LoadOrders();
+                        LoadPendingOrders();
+                        LoadCompletedOrders();
                     }
                 }
             }
@@ -120,16 +158,25 @@ namespace PL
             }
         }
 
-        private void btnDeleteOrder_Click(object sender, EventArgs e)
+        private void contextMenuDelete_Click(object sender, EventArgs e)
         {
-            if (dgvOrders.SelectedRows.Count == 0)
+            DataGridView dgv = GetCurrentDataGridView();
+            if (dgv.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Please select an order to delete.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            int orderId = Convert.ToInt32(dgvOrders.SelectedRows[0].Cells["OrderID"].Value);
-            string customerName = dgvOrders.SelectedRows[0].Cells["CustomerName"].Value.ToString();
+            int orderId = Convert.ToInt32(dgv.SelectedRows[0].Cells["OrderID"].Value);
+            string customerName = dgv.SelectedRows[0].Cells["CustomerName"].Value.ToString();
+            string status = dgv.SelectedRows[0].Cells["Status"].Value.ToString();
+
+            // Check if order is completed
+            if (status.Equals("Completed", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("Completed orders cannot be deleted.", "Delete Not Allowed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             DialogResult result = MessageBox.Show(
                 $"Are you sure you want to delete order {orderId} for {customerName}?",
@@ -146,7 +193,8 @@ namespace PL
                     if (success)
                     {
                         MessageBox.Show("Order deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        LoadOrders();
+                        LoadPendingOrders();
+                        LoadCompletedOrders();
                     }
                     else
                     {
@@ -160,22 +208,39 @@ namespace PL
             }
         }
 
-        private void btnChangeStatus_Click(object sender, EventArgs e)
+        private void contextMenuChangeStatus_Click(object sender, EventArgs e)
         {
-            if (dgvOrders.SelectedRows.Count == 0)
+            DataGridView dgv = GetCurrentDataGridView();
+            if (dgv.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Please select an order to change status.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            int orderId = Convert.ToInt32(dgvOrders.SelectedRows[0].Cells["OrderID"].Value);
-            string currentStatus = dgvOrders.SelectedRows[0].Cells["Status"].Value.ToString();
+            int orderId = Convert.ToInt32(dgv.SelectedRows[0].Cells["OrderID"].Value);
+            string currentStatus = dgv.SelectedRows[0].Cells["Status"].Value.ToString();
+
+            // Check if order is completed
+            if (currentStatus.Equals("Completed", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("Completed orders cannot have their status changed.", "Status Change Not Allowed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             frmChangeStatus statusForm = new frmChangeStatus(orderId, currentStatus);
             if (statusForm.ShowDialog() == DialogResult.OK)
             {
-                LoadOrders();
+                LoadPendingOrders();
+                LoadCompletedOrders();
             }
+        }
+
+        private DataGridView GetCurrentDataGridView()
+        {
+            if (tabControl.SelectedTab == tabPending)
+                return dgvPending;
+            else
+                return dgvCompleted;
         }
 
         private void txtSearch_KeyDown(object sender, KeyEventArgs e)
@@ -189,6 +254,19 @@ namespace PL
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Refresh the current tab when switching
+            if (tabControl.SelectedTab == tabPending)
+            {
+                LoadPendingOrders();
+            }
+            else if (tabControl.SelectedTab == tabCompleted)
+            {
+                LoadCompletedOrders();
+            }
         }
     }
 }

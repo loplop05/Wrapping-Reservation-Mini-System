@@ -189,6 +189,8 @@ namespace PL
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblTotalBillValue);
             this.Controls.Add(this.lblTotalBill);
+            this.Controls.Add(this.cmbPaymentMethod);
+            this.Controls.Add(this.lblPaymentMethod);
             this.Controls.Add(this.cmbStatus);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.txtOtherPurchases);
@@ -214,6 +216,8 @@ namespace PL
         private System.Windows.Forms.TextBox txtOtherPurchases;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.ComboBox cmbStatus;
+        private System.Windows.Forms.Label lblPaymentMethod;
+        private System.Windows.Forms.ComboBox cmbPaymentMethod;
         private System.Windows.Forms.Label lblTotalBill;
         private System.Windows.Forms.Label lblTotalBillValue;
         private System.Windows.Forms.Button btnSave;
