@@ -15,27 +15,28 @@ namespace PL
 
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblTitle = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPending = new System.Windows.Forms.TabPage();
             this.dgvPending = new System.Windows.Forms.DataGridView();
-            this.tabCompleted = new System.Windows.Forms.TabPage();
-            this.dgvCompleted = new System.Windows.Forms.DataGridView();
-            this.contextMenu = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuChangeStatus = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabCompleted = new System.Windows.Forms.TabPage();
+            this.dgvCompleted = new System.Windows.Forms.DataGridView();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnAddReservation = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPending.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPending)).BeginInit();
+            this.contextMenu.SuspendLayout();
             this.tabCompleted.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCompleted)).BeginInit();
-            this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -44,7 +45,7 @@ namespace PL
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.Location = new System.Drawing.Point(200, 10);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(300, 31);
+            this.lblTitle.Size = new System.Drawing.Size(278, 31);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Orders Management";
             // 
@@ -85,18 +86,16 @@ namespace PL
             // tabPending
             // 
             this.tabPending.Controls.Add(this.dgvPending);
-            this.tabPending.Location = new System.Drawing.Point(4, 29);
+            this.tabPending.Location = new System.Drawing.Point(4, 25);
             this.tabPending.Name = "tabPending";
             this.tabPending.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPending.Size = new System.Drawing.Size(692, 267);
+            this.tabPending.Size = new System.Drawing.Size(692, 271);
             this.tabPending.TabIndex = 0;
             this.tabPending.Text = "Pending Orders";
             this.tabPending.UseVisualStyleBackColor = true;
             // 
             // dgvPending
             // 
-            this.dgvPending.AllowUserToAddRows = false;
-            this.dgvPending.AllowUserToDeleteRows = false;
             this.dgvPending.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvPending.BackgroundColor = System.Drawing.Color.White;
             this.dgvPending.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -104,19 +103,51 @@ namespace PL
             this.dgvPending.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvPending.Location = new System.Drawing.Point(3, 3);
             this.dgvPending.Name = "dgvPending";
-            this.dgvPending.ReadOnly = true;
             this.dgvPending.RowHeadersVisible = false;
+            this.dgvPending.RowHeadersWidth = 51;
             this.dgvPending.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPending.Size = new System.Drawing.Size(686, 261);
+            this.dgvPending.Size = new System.Drawing.Size(686, 265);
             this.dgvPending.TabIndex = 0;
+            this.dgvPending.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPending_CellContentClick);
+            // 
+            // contextMenu
+            // 
+            this.contextMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuEdit,
+            this.contextMenuDelete,
+            this.contextMenuChangeStatus});
+            this.contextMenu.Name = "contextMenu";
+            this.contextMenu.Size = new System.Drawing.Size(173, 76);
+            // 
+            // contextMenuEdit
+            // 
+            this.contextMenuEdit.Name = "contextMenuEdit";
+            this.contextMenuEdit.Size = new System.Drawing.Size(172, 24);
+            this.contextMenuEdit.Text = "Edit";
+            this.contextMenuEdit.Click += new System.EventHandler(this.contextMenuEdit_Click);
+            // 
+            // contextMenuDelete
+            // 
+            this.contextMenuDelete.Name = "contextMenuDelete";
+            this.contextMenuDelete.Size = new System.Drawing.Size(172, 24);
+            this.contextMenuDelete.Text = "Delete";
+            this.contextMenuDelete.Click += new System.EventHandler(this.contextMenuDelete_Click);
+            // 
+            // contextMenuChangeStatus
+            // 
+            this.contextMenuChangeStatus.Name = "contextMenuChangeStatus";
+            this.contextMenuChangeStatus.Size = new System.Drawing.Size(172, 24);
+            this.contextMenuChangeStatus.Text = "Change Status";
+            this.contextMenuChangeStatus.Click += new System.EventHandler(this.contextMenuChangeStatus_Click);
             // 
             // tabCompleted
             // 
             this.tabCompleted.Controls.Add(this.dgvCompleted);
-            this.tabCompleted.Location = new System.Drawing.Point(4, 29);
+            this.tabCompleted.Location = new System.Drawing.Point(4, 25);
             this.tabCompleted.Name = "tabCompleted";
             this.tabCompleted.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCompleted.Size = new System.Drawing.Size(692, 267);
+            this.tabCompleted.Size = new System.Drawing.Size(692, 271);
             this.tabCompleted.TabIndex = 1;
             this.tabCompleted.Text = "Completed Orders";
             this.tabCompleted.UseVisualStyleBackColor = true;
@@ -134,39 +165,10 @@ namespace PL
             this.dgvCompleted.Name = "dgvCompleted";
             this.dgvCompleted.ReadOnly = true;
             this.dgvCompleted.RowHeadersVisible = false;
+            this.dgvCompleted.RowHeadersWidth = 51;
             this.dgvCompleted.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCompleted.Size = new System.Drawing.Size(686, 261);
+            this.dgvCompleted.Size = new System.Drawing.Size(686, 265);
             this.dgvCompleted.TabIndex = 0;
-            // 
-            // contextMenu
-            // 
-            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.contextMenuEdit,
-            this.contextMenuDelete,
-            this.contextMenuChangeStatus});
-            this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(153, 92);
-            // 
-            // contextMenuEdit
-            // 
-            this.contextMenuEdit.Name = "contextMenuEdit";
-            this.contextMenuEdit.Size = new System.Drawing.Size(152, 24);
-            this.contextMenuEdit.Text = "Edit";
-            this.contextMenuEdit.Click += new System.EventHandler(this.contextMenuEdit_Click);
-            // 
-            // contextMenuDelete
-            // 
-            this.contextMenuDelete.Name = "contextMenuDelete";
-            this.contextMenuDelete.Size = new System.Drawing.Size(152, 24);
-            this.contextMenuDelete.Text = "Delete";
-            this.contextMenuDelete.Click += new System.EventHandler(this.contextMenuDelete_Click);
-            // 
-            // contextMenuChangeStatus
-            // 
-            this.contextMenuChangeStatus.Name = "contextMenuChangeStatus";
-            this.contextMenuChangeStatus.Size = new System.Drawing.Size(152, 24);
-            this.contextMenuChangeStatus.Text = "Change Status";
-            this.contextMenuChangeStatus.Click += new System.EventHandler(this.contextMenuChangeStatus_Click);
             // 
             // btnRefresh
             // 
@@ -215,7 +217,7 @@ namespace PL
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(800, 480);
+            this.ClientSize = new System.Drawing.Size(965, 612);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnAddReservation);
             this.Controls.Add(this.btnRefresh);
@@ -231,11 +233,12 @@ namespace PL
             this.tabControl.ResumeLayout(false);
             this.tabPending.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPending)).EndInit();
+            this.contextMenu.ResumeLayout(false);
             this.tabCompleted.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCompleted)).EndInit();
-            this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.Label lblTitle;

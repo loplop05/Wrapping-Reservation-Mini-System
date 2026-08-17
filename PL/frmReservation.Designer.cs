@@ -39,7 +39,7 @@ namespace PL
             // 
             this.lblPhone.AutoSize = true;
             this.lblPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPhone.Location = new System.Drawing.Point(50, 80);
+            this.lblPhone.Location = new System.Drawing.Point(139, 99);
             this.lblPhone.Name = "lblPhone";
             this.lblPhone.Size = new System.Drawing.Size(145, 24);
             this.lblPhone.TabIndex = 1;
@@ -48,7 +48,7 @@ namespace PL
             // txtPhone
             // 
             this.txtPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.txtPhone.Location = new System.Drawing.Point(224, 71);
+            this.txtPhone.Location = new System.Drawing.Point(313, 90);
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(200, 36);
             this.txtPhone.TabIndex = 2;
@@ -59,7 +59,7 @@ namespace PL
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.ForeColor = System.Drawing.Color.White;
-            this.btnSearch.Location = new System.Drawing.Point(430, 71);
+            this.btnSearch.Location = new System.Drawing.Point(519, 90);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(100, 36);
             this.btnSearch.TabIndex = 3;
@@ -71,7 +71,7 @@ namespace PL
             // 
             this.lblName.AutoSize = true;
             this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.Location = new System.Drawing.Point(50, 130);
+            this.lblName.Location = new System.Drawing.Point(139, 149);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(152, 24);
             this.lblName.TabIndex = 4;
@@ -80,7 +80,7 @@ namespace PL
             // txtName
             // 
             this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 17F);
-            this.txtName.Location = new System.Drawing.Point(212, 119);
+            this.txtName.Location = new System.Drawing.Point(301, 138);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(236, 40);
             this.txtName.TabIndex = 5;
@@ -89,7 +89,7 @@ namespace PL
             // 
             this.lblBooksQty.AutoSize = true;
             this.lblBooksQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBooksQty.Location = new System.Drawing.Point(50, 180);
+            this.lblBooksQty.Location = new System.Drawing.Point(139, 199);
             this.lblBooksQty.Name = "lblBooksQty";
             this.lblBooksQty.Size = new System.Drawing.Size(161, 24);
             this.lblBooksQty.TabIndex = 6;
@@ -98,7 +98,7 @@ namespace PL
             // nudBooksQty
             // 
             this.nudBooksQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudBooksQty.Location = new System.Drawing.Point(224, 173);
+            this.nudBooksQty.Location = new System.Drawing.Point(313, 192);
             this.nudBooksQty.Name = "nudBooksQty";
             this.nudBooksQty.Size = new System.Drawing.Size(120, 34);
             this.nudBooksQty.TabIndex = 7;
@@ -113,7 +113,7 @@ namespace PL
             // 
             this.lblOtherPurchases.AutoSize = true;
             this.lblOtherPurchases.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOtherPurchases.Location = new System.Drawing.Point(50, 230);
+            this.lblOtherPurchases.Location = new System.Drawing.Point(139, 249);
             this.lblOtherPurchases.Name = "lblOtherPurchases";
             this.lblOtherPurchases.Size = new System.Drawing.Size(156, 24);
             this.lblOtherPurchases.TabIndex = 8;
@@ -122,7 +122,7 @@ namespace PL
             // txtOtherPurchases
             // 
             this.txtOtherPurchases.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOtherPurchases.Location = new System.Drawing.Point(224, 230);
+            this.txtOtherPurchases.Location = new System.Drawing.Point(313, 249);
             this.txtOtherPurchases.Name = "txtOtherPurchases";
             this.txtOtherPurchases.Size = new System.Drawing.Size(120, 38);
             this.txtOtherPurchases.TabIndex = 9;
@@ -133,9 +133,9 @@ namespace PL
             // 
             this.lblPaymentMethod.AutoSize = true;
             this.lblPaymentMethod.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPaymentMethod.Location = new System.Drawing.Point(50, 280);
+            this.lblPaymentMethod.Location = new System.Drawing.Point(139, 299);
             this.lblPaymentMethod.Name = "lblPaymentMethod";
-            this.lblPaymentMethod.Size = new System.Drawing.Size(130, 24);
+            this.lblPaymentMethod.Size = new System.Drawing.Size(157, 24);
             this.lblPaymentMethod.TabIndex = 10;
             this.lblPaymentMethod.Text = "Payment Method:";
             // 
@@ -146,9 +146,9 @@ namespace PL
             this.cmbPaymentMethod.Items.AddRange(new object[] {
             "Cash",
             "Visa"});
-            this.cmbPaymentMethod.Location = new System.Drawing.Point(224, 277);
+            this.cmbPaymentMethod.Location = new System.Drawing.Point(313, 296);
             this.cmbPaymentMethod.Name = "cmbPaymentMethod";
-            this.cmbPaymentMethod.Size = new System.Drawing.Size(120, 32);
+            this.cmbPaymentMethod.Size = new System.Drawing.Size(120, 30);
             this.cmbPaymentMethod.TabIndex = 11;
             this.cmbPaymentMethod.Text = "Cash";
             // 
@@ -156,9 +156,9 @@ namespace PL
             // 
             this.lblTotalBill.AutoSize = true;
             this.lblTotalBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalBill.Location = new System.Drawing.Point(37, 330);
+            this.lblTotalBill.Location = new System.Drawing.Point(139, 370);
             this.lblTotalBill.Name = "lblTotalBill";
-            this.lblTotalBill.Size = new System.Drawing.Size(158, 39);
+            this.lblTotalBill.Size = new System.Drawing.Size(150, 38);
             this.lblTotalBill.TabIndex = 12;
             this.lblTotalBill.Text = "Total Bill:";
             // 
@@ -167,9 +167,9 @@ namespace PL
             this.lblTotalBillValue.AutoSize = true;
             this.lblTotalBillValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalBillValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.lblTotalBillValue.Location = new System.Drawing.Point(241, 330);
+            this.lblTotalBillValue.Location = new System.Drawing.Point(343, 370);
             this.lblTotalBillValue.Name = "lblTotalBillValue";
-            this.lblTotalBillValue.Size = new System.Drawing.Size(134, 39);
+            this.lblTotalBillValue.Size = new System.Drawing.Size(130, 38);
             this.lblTotalBillValue.TabIndex = 13;
             this.lblTotalBillValue.Text = "0.00 JD";
             // 
@@ -179,9 +179,9 @@ namespace PL
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(61, 350);
+            this.btnSave.Location = new System.Drawing.Point(146, 443);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(150, 45);
+            this.btnSave.Size = new System.Drawing.Size(150, 42);
             this.btnSave.TabIndex = 14;
             this.btnSave.Text = "Save Reservation";
             this.btnSave.UseVisualStyleBackColor = false;
@@ -193,9 +193,9 @@ namespace PL
             this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.Color.White;
-            this.btnClear.Location = new System.Drawing.Point(248, 350);
+            this.btnClear.Location = new System.Drawing.Point(333, 443);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(100, 45);
+            this.btnClear.Size = new System.Drawing.Size(100, 42);
             this.btnClear.TabIndex = 15;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = false;
@@ -207,9 +207,9 @@ namespace PL
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(406, 350);
+            this.btnClose.Location = new System.Drawing.Point(491, 443);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(100, 45);
+            this.btnClose.Size = new System.Drawing.Size(100, 42);
             this.btnClose.TabIndex = 16;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = false;
@@ -219,7 +219,7 @@ namespace PL
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(110, 19);
+            this.lblTitle.Location = new System.Drawing.Point(199, 38);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(376, 31);
             this.lblTitle.TabIndex = 0;
@@ -230,7 +230,7 @@ namespace PL
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(632, 420);
+            this.ClientSize = new System.Drawing.Size(780, 549);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnSave);

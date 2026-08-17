@@ -268,5 +268,10 @@ namespace PL
                 LoadCompletedOrders();
             }
         }
+
+        private void dgvPending_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
