@@ -26,16 +26,24 @@ namespace PL
             {
                 DataTable stats = orderBLL.GetEndOfDayStatistics();
 
-                if (stats.Rows.Count > 0)
+                if (stats != null && stats.Rows.Count > 0)
                 {
                     DataRow row = stats.Rows[0];
                     
-                    lblTotalCustomers.Text = row["TotalCustomers"].ToString();
-                    lblTotalBooks.Text = row["TotalBooks"].ToString();
-                    lblTotalMoney.Text = Convert.ToDecimal(row["TotalMoney"]).ToString("F2") + " JD";
-                    lblTotalCash.Text = Convert.ToDecimal(row["TotalCash"]).ToString("F2") + " JD";
-                    lblTotalVisa.Text = Convert.ToDecimal(row["TotalVisa"]).ToString("F2") + " JD";
-                    lblTotalOrders.Text = row["TotalOrders"].ToString();
+                    // Handle potential NULL values safely
+                    lblTotalCustomers.Text = row["TotalCustomers"] != DBNull.Value ? row["TotalCustomers"].ToString() : "0";
+                    lblTotalBooks.Text = row["TotalBooks"] != DBNull.Value ? row["TotalBooks"].ToString() : "0";
+                    
+                    decimal totalMoney = row["TotalMoney"] != DBNull.Value ? Convert.ToDecimal(row["TotalMoney"]) : 0m;
+                    lblTotalMoney.Text = totalMoney.ToString("F2") + " JD";
+                    
+                    decimal totalCash = row["TotalCash"] != DBNull.Value ? Convert.ToDecimal(row["TotalCash"]) : 0m;
+                    lblTotalCash.Text = totalCash.ToString("F2") + " JD";
+                    
+                    decimal totalVisa = row["TotalVisa"] != DBNull.Value ? Convert.ToDecimal(row["TotalVisa"]) : 0m;
+                    lblTotalVisa.Text = totalVisa.ToString("F2") + " JD";
+                    
+                    lblTotalOrders.Text = row["TotalOrders"] != DBNull.Value ? row["TotalOrders"].ToString() : "0";
                 }
                 else
                 {
@@ -49,7 +57,15 @@ namespace PL
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading statistics: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error loading statistics: " + ex.Message + "\n\nPlease ensure the PaymentMethod column exists in the Orders table.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
+                // Set default values on error
+                lblTotalCustomers.Text = "0";
+                lblTotalBooks.Text = "0";
+                lblTotalMoney.Text = "0.00 JD";
+                lblTotalCash.Text = "0.00 JD";
+                lblTotalVisa.Text = "0.00 JD";
+                lblTotalOrders.Text = "0";
             }
         }
 

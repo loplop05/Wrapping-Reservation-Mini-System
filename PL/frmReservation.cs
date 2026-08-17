@@ -142,8 +142,7 @@ namespace PL
 
             try
             {
-                string paymentMethod = cmbPaymentMethod.Text;
-                bool success = orderBLL.CreateOrder(currentCustomerId, booksQty, otherPurchases, "Pending", paymentMethod);
+                bool success = orderBLL.CreateOrder(currentCustomerId, booksQty, otherPurchases, "Pending");
 
                 if (success)
                 {
@@ -173,7 +172,6 @@ namespace PL
             txtName.ReadOnly = false;
             nudBooksQty.Value = 1;
             txtOtherPurchases.Text = "0";
-            cmbPaymentMethod.Text = "Cash";
             lblTotalBill.Text = "0.00 JD";
             currentCustomerId = -1; // Reset to allow new customer or same customer for new reservation
             txtPhone.Focus();

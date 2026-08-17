@@ -24,8 +24,6 @@ namespace PL
             this.nudBooksQty = new System.Windows.Forms.NumericUpDown();
             this.lblOtherPurchases = new System.Windows.Forms.Label();
             this.txtOtherPurchases = new System.Windows.Forms.TextBox();
-            this.lblPaymentMethod = new System.Windows.Forms.Label();
-            this.cmbPaymentMethod = new System.Windows.Forms.ComboBox();
             this.lblTotalBill = new System.Windows.Forms.Label();
             this.lblTotalBillValue = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();

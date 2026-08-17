@@ -258,7 +258,6 @@ namespace PL
 
         private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Refresh the current tab when switching
             if (tabControl.SelectedTab == tabPending)
             {
                 LoadPendingOrders();

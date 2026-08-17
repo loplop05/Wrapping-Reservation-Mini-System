@@ -13,18 +13,17 @@ namespace DAL
             dataAccess = new DataAccess();
         }
 
-        public int InsertOrder(int customerId, int booksQty, decimal otherPurchasesAmount, decimal totalBill, string status, string paymentMethod)
+        public int InsertOrder(int customerId, int booksQty, decimal otherPurchasesAmount, decimal totalBill, string status)
         {
-            string query = @"INSERT INTO Orders (CustomerID, BooksQty, OtherPurchasesAmount, TotalBill, Status, PaymentMethod) 
-                            VALUES (@CustomerID, @BooksQty, @OtherPurchasesAmount, @TotalBill, @Status, @PaymentMethod)";
+            string query = @"INSERT INTO Orders (CustomerID, BooksQty, OtherPurchasesAmount, TotalBill, Status) 
+                            VALUES (@CustomerID, @BooksQty, @OtherPurchasesAmount, @TotalBill, @Status)";
             SqlParameter[] parameters = new SqlParameter[]
             {
                 new SqlParameter("@CustomerID", customerId),
                 new SqlParameter("@BooksQty", booksQty),
                 new SqlParameter("@OtherPurchasesAmount", otherPurchasesAmount),
                 new SqlParameter("@TotalBill", totalBill),
-                new SqlParameter("@Status", status),
-                new SqlParameter("@PaymentMethod", paymentMethod)
+                new SqlParameter("@Status", status)
             };
             return dataAccess.ExecuteNonQuery(query, parameters);
         }
@@ -32,7 +31,7 @@ namespace DAL
         public DataTable GetAllOrders()
         {
             string query = @"SELECT o.OrderID, c.Name AS CustomerName, c.Phone, o.BooksQty, 
-                            o.OtherPurchasesAmount, o.TotalBill, o.OrderDate, o.Status, o.PaymentMethod
+                            o.OtherPurchasesAmount, o.TotalBill, o.OrderDate, o.Status 
                             FROM Orders o 
                             INNER JOIN Customers c ON o.CustomerID = c.CustomerID 
                             ORDER BY o.OrderDate DESC";
@@ -42,7 +41,7 @@ namespace DAL
         public DataTable GetOrderById(int orderId)
         {
             string query = @"SELECT o.OrderID, c.Name AS CustomerName, c.Phone, o.BooksQty, 
-                            o.OtherPurchasesAmount, o.TotalBill, o.OrderDate, o.Status, o.PaymentMethod, o.CustomerID
+                            o.OtherPurchasesAmount, o.TotalBill, o.OrderDate, o.Status, o.CustomerID
                             FROM Orders o 
                             INNER JOIN Customers c ON o.CustomerID = c.CustomerID 
                             WHERE o.OrderID = @OrderID";
@@ -53,14 +52,13 @@ namespace DAL
             return dataAccess.ExecuteQuery(query, parameters);
         }
 
-        public int UpdateOrder(int orderId, int booksQty, decimal otherPurchasesAmount, decimal totalBill, string status, string paymentMethod)
+        public int UpdateOrder(int orderId, int booksQty, decimal otherPurchasesAmount, decimal totalBill, string status)
         {
             string query = @"UPDATE Orders 
                             SET BooksQty = @BooksQty, 
                                 OtherPurchasesAmount = @OtherPurchasesAmount, 
                                 TotalBill = @TotalBill, 
-                                Status = @Status,
-                                PaymentMethod = @PaymentMethod
+                                Status = @Status 
                             WHERE OrderID = @OrderID";
             SqlParameter[] parameters = new SqlParameter[]
             {
@@ -68,8 +66,7 @@ namespace DAL
                 new SqlParameter("@BooksQty", booksQty),
                 new SqlParameter("@OtherPurchasesAmount", otherPurchasesAmount),
                 new SqlParameter("@TotalBill", totalBill),
-                new SqlParameter("@Status", status),
-                new SqlParameter("@PaymentMethod", paymentMethod)
+                new SqlParameter("@Status", status)
             };
             return dataAccess.ExecuteNonQuery(query, parameters);
         }
@@ -98,7 +95,7 @@ namespace DAL
         public DataTable SearchOrders(string searchTerm)
         {
             string query = @"SELECT o.OrderID, c.Name AS CustomerName, c.Phone, o.BooksQty, 
-                            o.OtherPurchasesAmount, o.TotalBill, o.OrderDate, o.Status, o.PaymentMethod
+                            o.OtherPurchasesAmount, o.TotalBill, o.OrderDate, o.Status 
                             FROM Orders o 
                             INNER JOIN Customers c ON o.CustomerID = c.CustomerID 
                             WHERE c.Phone LIKE @SearchTerm 
@@ -115,7 +112,7 @@ namespace DAL
         public DataTable GetOrdersByStatus(string status)
         {
             string query = @"SELECT o.OrderID, c.Name AS CustomerName, c.Phone, o.BooksQty, 
-                            o.OtherPurchasesAmount, o.TotalBill, o.OrderDate, o.Status, o.PaymentMethod
+                            o.OtherPurchasesAmount, o.TotalBill, o.OrderDate, o.Status
                             FROM Orders o 
                             INNER JOIN Customers c ON o.CustomerID = c.CustomerID 
                             WHERE o.Status = @Status
@@ -133,8 +130,6 @@ namespace DAL
                             COUNT(DISTINCT o.CustomerID) AS TotalCustomers,
                             SUM(o.BooksQty) AS TotalBooks,
                             SUM(o.TotalBill) AS TotalMoney,
-                            SUM(CASE WHEN ISNULL(o.PaymentMethod, 'Cash') = 'Cash' THEN o.TotalBill ELSE 0 END) AS TotalCash,
-                            SUM(CASE WHEN ISNULL(o.PaymentMethod, 'Cash') = 'Visa' THEN o.TotalBill ELSE 0 END) AS TotalVisa,
                             COUNT(*) AS TotalOrders
                             FROM Orders o 
                             WHERE CAST(o.OrderDate AS DATE) = CAST(GETDATE() AS DATE)";

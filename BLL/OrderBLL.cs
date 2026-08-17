@@ -50,13 +50,7 @@ namespace BLL
             return Array.Exists(validStatuses, s => s.Equals(status, StringComparison.OrdinalIgnoreCase));
         }
 
-        public bool ValidatePaymentMethod(string paymentMethod)
-        {
-            string[] validPaymentMethods = { "Cash", "Visa" };
-            return Array.Exists(validPaymentMethods, s => s.Equals(paymentMethod, StringComparison.OrdinalIgnoreCase));
-        }
-
-        public bool CreateOrder(int customerId, int booksQty, decimal otherPurchases, string status = "Pending", string paymentMethod = "Cash")
+        public bool CreateOrder(int customerId, int booksQty, decimal otherPurchases, string status = "Pending")
         {
             if (customerId <= 0)
                 throw new ArgumentException("Invalid customer ID");
@@ -70,12 +64,9 @@ namespace BLL
             if (!ValidateStatus(status))
                 throw new ArgumentException("Invalid status");
 
-            if (!ValidatePaymentMethod(paymentMethod))
-                throw new ArgumentException("Invalid payment method");
-
             decimal totalBill = CalculateTotalBill(booksQty, otherPurchases);
 
-            int result = orderDAL.InsertOrder(customerId, booksQty, otherPurchases, totalBill, status, paymentMethod);
+            int result = orderDAL.InsertOrder(customerId, booksQty, otherPurchases, totalBill, status);
             return result > 0;
         }
 
@@ -92,7 +83,7 @@ namespace BLL
             return orderDAL.GetOrderById(orderId);
         }
 
-        public bool UpdateOrder(int orderId, int booksQty, decimal otherPurchases, string status, string paymentMethod)
+        public bool UpdateOrder(int orderId, int booksQty, decimal otherPurchases, string status)
         {
             if (orderId <= 0)
                 throw new ArgumentException("Invalid order ID");
@@ -106,12 +97,9 @@ namespace BLL
             if (!ValidateStatus(status))
                 throw new ArgumentException("Invalid status");
 
-            if (!ValidatePaymentMethod(paymentMethod))
-                throw new ArgumentException("Invalid payment method");
-
             decimal totalBill = CalculateTotalBill(booksQty, otherPurchases);
 
-            int result = orderDAL.UpdateOrder(orderId, booksQty, otherPurchases, totalBill, status, paymentMethod);
+            int result = orderDAL.UpdateOrder(orderId, booksQty, otherPurchases, totalBill, status);
             return result > 0;
         }
 
@@ -154,7 +142,28 @@ namespace BLL
 
         public DataTable GetEndOfDayStatistics()
         {
-            return orderDAL.GetEndOfDayStatistics();
+            DataTable stats = orderDAL.GetEndOfDayStatistics();
+            
+            // Add Cash and Visa columns with 0 values for compatibility
+            if (stats.Columns.Contains("TotalCash"))
+            {
+                stats.Columns.Remove("TotalCash");
+            }
+            if (stats.Columns.Contains("TotalVisa"))
+            {
+                stats.Columns.Remove("TotalVisa");
+            }
+            
+            stats.Columns.Add("TotalCash", typeof(decimal));
+            stats.Columns.Add("TotalVisa", typeof(decimal));
+            
+            if (stats.Rows.Count > 0)
+            {
+                stats.Rows[0]["TotalCash"] = 0m;
+                stats.Rows[0]["TotalVisa"] = 0m;
+            }
+            
+            return stats;
         }
     }
 }
