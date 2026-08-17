@@ -34,11 +34,11 @@ namespace PL
 
                 if (customer.Rows.Count > 0)
                 {
-                    // Customer exists
+                    // Customer exists - allow multiple reservations
                     currentCustomerId = Convert.ToInt32(customer.Rows[0]["CustomerID"]);
                     txtName.Text = customer.Rows[0]["Name"].ToString();
                     txtName.ReadOnly = true;
-                    MessageBox.Show("Customer found!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Customer found! Ready to add another reservation.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -113,13 +113,7 @@ namespace PL
 
                 try
                 {
-                    customerBLL.CreateCustomer(phone, name);
-                    // Get the newly created customer ID
-                    DataTable newCustomer = customerBLL.GetCustomerByPhone(phone);
-                    if (newCustomer.Rows.Count > 0)
-                    {
-                        currentCustomerId = Convert.ToInt32(newCustomer.Rows[0]["CustomerID"]);
-                    }
+                    currentCustomerId = customerBLL.GetOrCreateCustomer(phone, name);
                 }
                 catch (Exception ex)
                 {
@@ -181,7 +175,7 @@ namespace PL
             txtOtherPurchases.Text = "0";
             cmbPaymentMethod.Text = "Cash";
             lblTotalBill.Text = "0.00 JD";
-            currentCustomerId = -1;
+            currentCustomerId = -1; // Reset to allow new customer or same customer for new reservation
             txtPhone.Focus();
         }
 

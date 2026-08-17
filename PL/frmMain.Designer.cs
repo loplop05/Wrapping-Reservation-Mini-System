@@ -26,7 +26,7 @@ namespace PL
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(150, 50);
+            this.lblTitle.Location = new System.Drawing.Point(175, 55);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(455, 36);
             this.lblTitle.TabIndex = 0;
@@ -38,7 +38,7 @@ namespace PL
             this.btnAddReservation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddReservation.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddReservation.ForeColor = System.Drawing.Color.White;
-            this.btnAddReservation.Location = new System.Drawing.Point(200, 119);
+            this.btnAddReservation.Location = new System.Drawing.Point(225, 124);
             this.btnAddReservation.Name = "btnAddReservation";
             this.btnAddReservation.Size = new System.Drawing.Size(300, 91);
             this.btnAddReservation.TabIndex = 1;
@@ -52,7 +52,7 @@ namespace PL
             this.btnCheckStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCheckStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCheckStatus.ForeColor = System.Drawing.Color.White;
-            this.btnCheckStatus.Location = new System.Drawing.Point(200, 235);
+            this.btnCheckStatus.Location = new System.Drawing.Point(225, 240);
             this.btnCheckStatus.Name = "btnCheckStatus";
             this.btnCheckStatus.Size = new System.Drawing.Size(300, 89);
             this.btnCheckStatus.TabIndex = 2;
@@ -66,7 +66,7 @@ namespace PL
             this.btnEndOfDay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEndOfDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEndOfDay.ForeColor = System.Drawing.Color.White;
-            this.btnEndOfDay.Location = new System.Drawing.Point(200, 340);
+            this.btnEndOfDay.Location = new System.Drawing.Point(225, 345);
             this.btnEndOfDay.Name = "btnEndOfDay";
             this.btnEndOfDay.Size = new System.Drawing.Size(300, 65);
             this.btnEndOfDay.TabIndex = 3;
@@ -80,7 +80,7 @@ namespace PL
             this.btnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.Color.White;
-            this.btnExit.Location = new System.Drawing.Point(200, 420);
+            this.btnExit.Location = new System.Drawing.Point(225, 425);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(300, 50);
             this.btnExit.TabIndex = 4;
@@ -93,7 +93,7 @@ namespace PL
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(700, 450);
+            this.ClientSize = new System.Drawing.Size(772, 587);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnEndOfDay);
             this.Controls.Add(this.btnCheckStatus);

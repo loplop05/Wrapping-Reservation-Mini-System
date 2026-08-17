@@ -29,6 +29,8 @@ namespace PL
             this.lblTotalVisa = new System.Windows.Forms.Label();
             this.lblTotalOrdersLabel = new System.Windows.Forms.Label();
             this.lblTotalOrders = new System.Windows.Forms.Label();
+            this.btnPrint = new System.Windows.Forms.Button();
+            this.btnSavePdf = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -57,7 +59,7 @@ namespace PL
             // 
             this.lblTotalCustomersLabel.AutoSize = true;
             this.lblTotalCustomersLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalCustomersLabel.Location = new System.Drawing.Point(100, 130);
+            this.lblTotalCustomersLabel.Location = new System.Drawing.Point(50, 130);
             this.lblTotalCustomersLabel.Name = "lblTotalCustomersLabel";
             this.lblTotalCustomersLabel.Size = new System.Drawing.Size(180, 31);
             this.lblTotalCustomersLabel.TabIndex = 2;
@@ -67,7 +69,7 @@ namespace PL
             // 
             this.lblTotalCustomers.AutoSize = true;
             this.lblTotalCustomers.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalCustomers.Location = new System.Drawing.Point(350, 130);
+            this.lblTotalCustomers.Location = new System.Drawing.Point(400, 130);
             this.lblTotalCustomers.Name = "lblTotalCustomers";
             this.lblTotalCustomers.Size = new System.Drawing.Size(25, 31);
             this.lblTotalCustomers.TabIndex = 3;
@@ -77,7 +79,7 @@ namespace PL
             // 
             this.lblTotalBooksLabel.AutoSize = true;
             this.lblTotalBooksLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalBooksLabel.Location = new System.Drawing.Point(100, 180);
+            this.lblTotalBooksLabel.Location = new System.Drawing.Point(50, 180);
             this.lblTotalBooksLabel.Name = "lblTotalBooksLabel";
             this.lblTotalBooksLabel.Size = new System.Drawing.Size(140, 31);
             this.lblTotalBooksLabel.TabIndex = 4;
@@ -87,7 +89,7 @@ namespace PL
             // 
             this.lblTotalBooks.AutoSize = true;
             this.lblTotalBooks.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalBooks.Location = new System.Drawing.Point(350, 180);
+            this.lblTotalBooks.Location = new System.Drawing.Point(400, 180);
             this.lblTotalBooks.Name = "lblTotalBooks";
             this.lblTotalBooks.Size = new System.Drawing.Size(25, 31);
             this.lblTotalBooks.TabIndex = 5;
@@ -97,7 +99,7 @@ namespace PL
             // 
             this.lblTotalMoneyLabel.AutoSize = true;
             this.lblTotalMoneyLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalMoneyLabel.Location = new System.Drawing.Point(100, 230);
+            this.lblTotalMoneyLabel.Location = new System.Drawing.Point(50, 230);
             this.lblTotalMoneyLabel.Name = "lblTotalMoneyLabel";
             this.lblTotalMoneyLabel.Size = new System.Drawing.Size(130, 31);
             this.lblTotalMoneyLabel.TabIndex = 6;
@@ -108,7 +110,7 @@ namespace PL
             this.lblTotalMoney.AutoSize = true;
             this.lblTotalMoney.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalMoney.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
-            this.lblTotalMoney.Location = new System.Drawing.Point(350, 230);
+            this.lblTotalMoney.Location = new System.Drawing.Point(400, 230);
             this.lblTotalMoney.Name = "lblTotalMoney";
             this.lblTotalMoney.Size = new System.Drawing.Size(80, 31);
             this.lblTotalMoney.TabIndex = 7;
@@ -118,7 +120,7 @@ namespace PL
             // 
             this.lblTotalCashLabel.AutoSize = true;
             this.lblTotalCashLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalCashLabel.Location = new System.Drawing.Point(100, 280);
+            this.lblTotalCashLabel.Location = new System.Drawing.Point(50, 280);
             this.lblTotalCashLabel.Name = "lblTotalCashLabel";
             this.lblTotalCashLabel.Size = new System.Drawing.Size(90, 31);
             this.lblTotalCashLabel.TabIndex = 8;
@@ -129,7 +131,7 @@ namespace PL
             this.lblTotalCash.AutoSize = true;
             this.lblTotalCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalCash.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
-            this.lblTotalCash.Location = new System.Drawing.Point(350, 280);
+            this.lblTotalCash.Location = new System.Drawing.Point(400, 280);
             this.lblTotalCash.Name = "lblTotalCash";
             this.lblTotalCash.Size = new System.Drawing.Size(80, 31);
             this.lblTotalCash.TabIndex = 9;
@@ -139,7 +141,7 @@ namespace PL
             // 
             this.lblTotalVisaLabel.AutoSize = true;
             this.lblTotalVisaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalVisaLabel.Location = new System.Drawing.Point(100, 330);
+            this.lblTotalVisaLabel.Location = new System.Drawing.Point(50, 330);
             this.lblTotalVisaLabel.Name = "lblTotalVisaLabel";
             this.lblTotalVisaLabel.Size = new System.Drawing.Size(100, 31);
             this.lblTotalVisaLabel.TabIndex = 10;
@@ -150,7 +152,7 @@ namespace PL
             this.lblTotalVisa.AutoSize = true;
             this.lblTotalVisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalVisa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(39)))), ((int)(((byte)(176)))));
-            this.lblTotalVisa.Location = new System.Drawing.Point(350, 330);
+            this.lblTotalVisa.Location = new System.Drawing.Point(400, 330);
             this.lblTotalVisa.Name = "lblTotalVisa";
             this.lblTotalVisa.Size = new System.Drawing.Size(80, 31);
             this.lblTotalVisa.TabIndex = 11;
@@ -160,7 +162,7 @@ namespace PL
             // 
             this.lblTotalOrdersLabel.AutoSize = true;
             this.lblTotalOrdersLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalOrdersLabel.Location = new System.Drawing.Point(100, 380);
+            this.lblTotalOrdersLabel.Location = new System.Drawing.Point(50, 380);
             this.lblTotalOrdersLabel.Name = "lblTotalOrdersLabel";
             this.lblTotalOrdersLabel.Size = new System.Drawing.Size(130, 31);
             this.lblTotalOrdersLabel.TabIndex = 12;
@@ -170,11 +172,39 @@ namespace PL
             // 
             this.lblTotalOrders.AutoSize = true;
             this.lblTotalOrders.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalOrders.Location = new System.Drawing.Point(350, 380);
+            this.lblTotalOrders.Location = new System.Drawing.Point(400, 380);
             this.lblTotalOrders.Name = "lblTotalOrders";
             this.lblTotalOrders.Size = new System.Drawing.Size(25, 31);
             this.lblTotalOrders.TabIndex = 13;
             this.lblTotalOrders.Text = "0";
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
+            this.btnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPrint.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrint.ForeColor = System.Drawing.Color.White;
+            this.btnPrint.Location = new System.Drawing.Point(50, 450);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(120, 45);
+            this.btnPrint.TabIndex = 14;
+            this.btnPrint.Text = "Print";
+            this.btnPrint.UseVisualStyleBackColor = false;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
+            // btnSavePdf
+            // 
+            this.btnSavePdf.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(39)))), ((int)(((byte)(176)))));
+            this.btnSavePdf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSavePdf.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSavePdf.ForeColor = System.Drawing.Color.White;
+            this.btnSavePdf.Location = new System.Drawing.Point(200, 450);
+            this.btnSavePdf.Name = "btnSavePdf";
+            this.btnSavePdf.Size = new System.Drawing.Size(120, 45);
+            this.btnSavePdf.TabIndex = 15;
+            this.btnSavePdf.Text = "Save as File";
+            this.btnSavePdf.UseVisualStyleBackColor = false;
+            this.btnSavePdf.Click += new System.EventHandler(this.btnSaveAsPdf_Click);
             // 
             // btnRefresh
             // 
@@ -182,10 +212,10 @@ namespace PL
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRefresh.ForeColor = System.Drawing.Color.White;
-            this.btnRefresh.Location = new System.Drawing.Point(150, 450);
+            this.btnRefresh.Location = new System.Drawing.Point(350, 450);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(120, 45);
-            this.btnRefresh.TabIndex = 14;
+            this.btnRefresh.TabIndex = 16;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = false;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
@@ -196,10 +226,10 @@ namespace PL
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(350, 450);
+            this.btnClose.Location = new System.Drawing.Point(500, 450);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(120, 45);
-            this.btnClose.TabIndex = 15;
+            this.btnClose.TabIndex = 17;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -209,9 +239,11 @@ namespace PL
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(600, 530);
+            this.ClientSize = new System.Drawing.Size(700, 530);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnRefresh);
+            this.Controls.Add(this.btnSavePdf);
+            this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.lblTotalOrders);
             this.Controls.Add(this.lblTotalOrdersLabel);
             this.Controls.Add(this.lblTotalVisa);
@@ -249,6 +281,8 @@ namespace PL
         private System.Windows.Forms.Label lblTotalVisa;
         private System.Windows.Forms.Label lblTotalOrdersLabel;
         private System.Windows.Forms.Label lblTotalOrders;
+        private System.Windows.Forms.Button btnPrint;
+        private System.Windows.Forms.Button btnSavePdf;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnClose;
     }

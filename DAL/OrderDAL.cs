@@ -133,8 +133,8 @@ namespace DAL
                             COUNT(DISTINCT o.CustomerID) AS TotalCustomers,
                             SUM(o.BooksQty) AS TotalBooks,
                             SUM(o.TotalBill) AS TotalMoney,
-                            SUM(CASE WHEN o.PaymentMethod = 'Cash' THEN o.TotalBill ELSE 0 END) AS TotalCash,
-                            SUM(CASE WHEN o.PaymentMethod = 'Visa' THEN o.TotalBill ELSE 0 END) AS TotalVisa,
+                            SUM(CASE WHEN ISNULL(o.PaymentMethod, 'Cash') = 'Cash' THEN o.TotalBill ELSE 0 END) AS TotalCash,
+                            SUM(CASE WHEN ISNULL(o.PaymentMethod, 'Cash') = 'Visa' THEN o.TotalBill ELSE 0 END) AS TotalVisa,
                             COUNT(*) AS TotalOrders
                             FROM Orders o 
                             WHERE CAST(o.OrderDate AS DATE) = CAST(GETDATE() AS DATE)";
