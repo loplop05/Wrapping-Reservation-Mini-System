@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data;
 using System.Windows.Forms;
 using BLL;
@@ -237,7 +237,6 @@ namespace PL
                 LoadCompletedOrders();
             }
         }
-
         private DataGridView GetCurrentDataGridView()
         {
             if (tabControl.SelectedTab == tabPending)

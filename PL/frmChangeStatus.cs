@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
 using BLL;
 
@@ -8,6 +8,11 @@ namespace PL
     {
         private OrderBLL orderBLL;
         private int orderId;
+
+        public string SelectedStatus
+        {
+            get { return cmbStatus.Text; }
+        }
 
         public frmChangeStatus(int orderId, string currentStatus)
         {
