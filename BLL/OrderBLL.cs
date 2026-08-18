@@ -6,9 +6,9 @@ namespace BLL
 {
     public class OrderBLL
     {
-        private OrderDAL orderDAL;
-        private CustomerBLL customerBLL;
-        private decimal wrappingPricePerBook = 1.0m; // Configurable wrapping price
+        private readonly OrderDAL orderDAL;
+        private readonly CustomerBLL customerBLL;
+        private decimal wrappingPricePerBook = 1.0m;
 
         public OrderBLL()
         {
@@ -19,7 +19,13 @@ namespace BLL
         public decimal WrappingPricePerBook
         {
             get { return wrappingPricePerBook; }
-            set { wrappingPricePerBook = value; }
+            set
+            {
+                if (value < 0)
+                    throw new ArgumentException("Wrapping price cannot be negative");
+
+                wrappingPricePerBook = value;
+            }
         }
 
         public bool ValidateBooksQty(int booksQty)
@@ -47,10 +53,23 @@ namespace BLL
         public bool ValidateStatus(string status)
         {
             string[] validStatuses = { "Pending", "Ready", "Completed", "Cancelled" };
-            return Array.Exists(validStatuses, s => s.Equals(status, StringComparison.OrdinalIgnoreCase));
+            return !string.IsNullOrWhiteSpace(status) &&
+                   Array.Exists(validStatuses, s => s.Equals(status, StringComparison.OrdinalIgnoreCase));
         }
 
-        public bool CreateOrder(int customerId, int booksQty, decimal otherPurchases, string status = "Pending")
+        public bool ValidatePaymentMethod(string paymentMethod)
+        {
+            string[] validPaymentMethods = { "Cash", "Visa" };
+            return !string.IsNullOrWhiteSpace(paymentMethod) &&
+                   Array.Exists(validPaymentMethods, p => p.Equals(paymentMethod, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public bool CreateOrder(
+            int customerId,
+            int booksQty,
+            decimal otherPurchases,
+            string status = "Pending",
+            string paymentMethod = "Cash")
         {
             if (customerId <= 0)
                 throw new ArgumentException("Invalid customer ID");
@@ -64,9 +83,11 @@ namespace BLL
             if (!ValidateStatus(status))
                 throw new ArgumentException("Invalid status");
 
-            decimal totalBill = CalculateTotalBill(booksQty, otherPurchases);
+            if (!ValidatePaymentMethod(paymentMethod))
+                throw new ArgumentException("Invalid payment method");
 
-            int result = orderDAL.InsertOrder(customerId, booksQty, otherPurchases, totalBill, status);
+            decimal totalBill = CalculateTotalBill(booksQty, otherPurchases);
+            int result = orderDAL.InsertOrder(customerId, booksQty, otherPurchases, totalBill, status, paymentMethod);
             return result > 0;
         }
 
@@ -83,7 +104,12 @@ namespace BLL
             return orderDAL.GetOrderById(orderId);
         }
 
-        public bool UpdateOrder(int orderId, int booksQty, decimal otherPurchases, string status)
+        public bool UpdateOrder(
+            int orderId,
+            int booksQty,
+            decimal otherPurchases,
+            string status,
+            string paymentMethod = "Cash")
         {
             if (orderId <= 0)
                 throw new ArgumentException("Invalid order ID");
@@ -97,9 +123,11 @@ namespace BLL
             if (!ValidateStatus(status))
                 throw new ArgumentException("Invalid status");
 
-            decimal totalBill = CalculateTotalBill(booksQty, otherPurchases);
+            if (!ValidatePaymentMethod(paymentMethod))
+                throw new ArgumentException("Invalid payment method");
 
-            int result = orderDAL.UpdateOrder(orderId, booksQty, otherPurchases, totalBill, status);
+            decimal totalBill = CalculateTotalBill(booksQty, otherPurchases);
+            int result = orderDAL.UpdateOrder(orderId, booksQty, otherPurchases, totalBill, status, paymentMethod);
             return result > 0;
         }
 
@@ -129,7 +157,7 @@ namespace BLL
             if (string.IsNullOrWhiteSpace(searchTerm))
                 return GetAllOrders();
 
-            return orderDAL.SearchOrders(searchTerm);
+            return orderDAL.SearchOrders(searchTerm.Trim());
         }
 
         public DataTable GetOrdersByStatus(string status)
@@ -142,28 +170,7 @@ namespace BLL
 
         public DataTable GetEndOfDayStatistics()
         {
-            DataTable stats = orderDAL.GetEndOfDayStatistics();
-            
-            // Add Cash and Visa columns with 0 values for compatibility
-            if (stats.Columns.Contains("TotalCash"))
-            {
-                stats.Columns.Remove("TotalCash");
-            }
-            if (stats.Columns.Contains("TotalVisa"))
-            {
-                stats.Columns.Remove("TotalVisa");
-            }
-            
-            stats.Columns.Add("TotalCash", typeof(decimal));
-            stats.Columns.Add("TotalVisa", typeof(decimal));
-            
-            if (stats.Rows.Count > 0)
-            {
-                stats.Rows[0]["TotalCash"] = 0m;
-                stats.Rows[0]["TotalVisa"] = 0m;
-            }
-            
-            return stats;
+            return orderDAL.GetEndOfDayStatistics();
         }
     }
 }

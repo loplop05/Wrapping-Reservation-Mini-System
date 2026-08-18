@@ -1,32 +1,45 @@
--- Simple script to add Phone column to Customers table
--- Run this in SQL Server Management Studio
+﻿-- Upgrade an existing Customers table with the required Phone column.
+-- Prefer FixDatabaseColumns.sql for the complete application migration.
 
-USE InventoryDB;
+IF DB_ID(N'WrappingReservation') IS NULL
+BEGIN
+    THROW 50010, 'Database WrappingReservation does not exist. Run Database.sql first.', 1;
+END
 GO
 
--- Add Phone column (simple approach)
-ALTER TABLE Customers ADD Phone NVARCHAR(20) NULL;
+USE WrappingReservation;
 GO
 
--- Update existing customers with dummy phone numbers if needed
--- (Remove this block if you don't have existing data)
-UPDATE Customers SET Phone = '0000000000' WHERE Phone IS NULL;
+IF COL_LENGTH(N'dbo.Customers', N'Phone') IS NULL
+BEGIN
+    ALTER TABLE dbo.Customers ADD Phone NVARCHAR(20) NULL;
+    PRINT 'Phone column added as nullable. Populate existing rows before enforcing uniqueness.';
+END
+ELSE
+BEGIN
+    PRINT 'Phone column already exists.';
+END
 GO
 
--- Make Phone NOT NULL
-ALTER TABLE Customers ALTER COLUMN Phone NVARCHAR(20) NOT NULL;
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM sys.indexes
+    WHERE name = N'UQ_Customers_Phone'
+      AND object_id = OBJECT_ID(N'dbo.Customers')
+)
+BEGIN
+    IF EXISTS (SELECT 1 FROM dbo.Customers WHERE Phone IS NULL)
+        PRINT 'Unique constraint was not added because NULL phone numbers remain.';
+    ELSE IF EXISTS (SELECT Phone FROM dbo.Customers GROUP BY Phone HAVING COUNT(*) > 1)
+        PRINT 'Unique constraint was not added because duplicate phone numbers exist.';
+    ELSE
+    BEGIN
+        ALTER TABLE dbo.Customers ALTER COLUMN Phone NVARCHAR(20) NOT NULL;
+        ALTER TABLE dbo.Customers ADD CONSTRAINT UQ_Customers_Phone UNIQUE (Phone);
+        PRINT 'Phone column is now required and unique.';
+    END
+END
 GO
 
--- Add UNIQUE constraint
-ALTER TABLE Customers ADD CONSTRAINT UQ_Customers_Phone UNIQUE (Phone);
-GO
 
-PRINT 'Phone column added successfully!';
-GO
-
--- Verify
-SELECT COLUMN_NAME, DATA_TYPE, IS_NULLABLE 
-FROM INFORMATION_SCHEMA.COLUMNS 
-WHERE TABLE_NAME = 'Customers' 
-ORDER BY ORDINAL_POSITION;
-GO

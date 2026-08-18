@@ -1,186 +1,137 @@
--- Script to fix missing columns in the database
--- Run this in SQL Server Management Studio
+﻿-- Upgrade an existing WrappingReservation database to the current schema.
+-- Run this script in SQL Server Management Studio.
 
-USE InventoryDB;
+IF DB_ID(N'WrappingReservation') IS NULL
+BEGIN
+    THROW 50000, 'Database WrappingReservation does not exist. Run Database.sql first.', 1;
+END
 GO
 
--- Check current columns in Customers table
-PRINT 'Current columns in Customers table:';
-SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH 
-FROM INFORMATION_SCHEMA.COLUMNS 
-WHERE TABLE_NAME = 'Customers'
-ORDER BY ORDINAL_POSITION;
+USE WrappingReservation;
 GO
 
--- Add Phone column if it doesn't exist
-IF NOT EXISTS (
-    SELECT * FROM INFORMATION_SCHEMA.COLUMNS 
-    WHERE TABLE_NAME = 'Customers' AND COLUMN_NAME = 'Phone'
+IF OBJECT_ID(N'dbo.Customers', N'U') IS NULL
+BEGIN
+    THROW 50001, 'Customers table does not exist. Run Database.sql first.', 1;
+END
+GO
+
+IF COL_LENGTH(N'dbo.Customers', N'Phone') IS NULL
+BEGIN
+    ALTER TABLE dbo.Customers ADD Phone NVARCHAR(20) NULL;
+    PRINT 'Added Customers.Phone as nullable. Populate existing rows before enforcing uniqueness.';
+END
+GO
+
+IF COL_LENGTH(N'dbo.Orders', N'BooksQty') IS NULL
+    ALTER TABLE dbo.Orders ADD BooksQty INT NOT NULL CONSTRAINT DF_Orders_BooksQty DEFAULT (1);
+GO
+
+IF COL_LENGTH(N'dbo.Orders', N'OtherPurchasesAmount') IS NULL
+    ALTER TABLE dbo.Orders ADD OtherPurchasesAmount DECIMAL(10,2) NOT NULL CONSTRAINT DF_Orders_OtherPurchasesAmount DEFAULT (0);
+GO
+
+IF COL_LENGTH(N'dbo.Orders', N'TotalBill') IS NULL
+    ALTER TABLE dbo.Orders ADD TotalBill DECIMAL(10,2) NOT NULL CONSTRAINT DF_Orders_TotalBill DEFAULT (0);
+GO
+
+IF COL_LENGTH(N'dbo.Orders', N'OrderDate') IS NULL
+    ALTER TABLE dbo.Orders ADD OrderDate DATETIME NOT NULL CONSTRAINT DF_Orders_OrderDate DEFAULT (GETDATE());
+GO
+
+IF COL_LENGTH(N'dbo.Orders', N'Status') IS NULL
+    ALTER TABLE dbo.Orders ADD Status NVARCHAR(20) NOT NULL CONSTRAINT DF_Orders_Status DEFAULT (N'Pending');
+GO
+
+IF COL_LENGTH(N'dbo.Orders', N'PaymentMethod') IS NULL
+    ALTER TABLE dbo.Orders ADD PaymentMethod NVARCHAR(20) NOT NULL CONSTRAINT DF_Orders_PaymentMethod DEFAULT (N'Cash');
+GO
+
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM sys.foreign_keys
+    WHERE name = N'FK_Orders_Customers'
+      AND parent_object_id = OBJECT_ID(N'dbo.Orders')
 )
 BEGIN
-    PRINT 'Adding Phone column to Customers table...';
-    ALTER TABLE Customers ADD Phone NVARCHAR(20);
-    
-    -- Make Phone NOT NULL if there are no existing rows, otherwise add as NULL first
-    -- Then update and make NOT NULL
-    DECLARE @rowCount INT;
-    SELECT @rowCount = COUNT(*) FROM Customers;
-    
-    IF @rowCount = 0
-    BEGIN
-        ALTER TABLE Customers ALTER COLUMN Phone NVARCHAR(20) NOT NULL;
-        PRINT 'Phone column added as NOT NULL';
-    END
+    ALTER TABLE dbo.Orders
+        ADD CONSTRAINT FK_Orders_Customers
+        FOREIGN KEY (CustomerID) REFERENCES dbo.Customers(CustomerID);
+END
+GO
+
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM sys.check_constraints
+    WHERE name = N'CK_Orders_BooksQty'
+      AND parent_object_id = OBJECT_ID(N'dbo.Orders')
+)
+    ALTER TABLE dbo.Orders ADD CONSTRAINT CK_Orders_BooksQty CHECK (BooksQty > 0);
+GO
+
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM sys.check_constraints
+    WHERE name = N'CK_Orders_OtherPurchases'
+      AND parent_object_id = OBJECT_ID(N'dbo.Orders')
+)
+    ALTER TABLE dbo.Orders ADD CONSTRAINT CK_Orders_OtherPurchases CHECK (OtherPurchasesAmount >= 0);
+GO
+
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM sys.check_constraints
+    WHERE name = N'CK_Orders_TotalBill'
+      AND parent_object_id = OBJECT_ID(N'dbo.Orders')
+)
+    ALTER TABLE dbo.Orders ADD CONSTRAINT CK_Orders_TotalBill CHECK (TotalBill >= 0);
+GO
+
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM sys.check_constraints
+    WHERE name = N'CK_Orders_Status'
+      AND parent_object_id = OBJECT_ID(N'dbo.Orders')
+)
+    ALTER TABLE dbo.Orders ADD CONSTRAINT CK_Orders_Status CHECK (Status IN (N'Pending', N'Ready', N'Completed', N'Cancelled'));
+GO
+
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM sys.check_constraints
+    WHERE name = N'CK_Orders_PaymentMethod'
+      AND parent_object_id = OBJECT_ID(N'dbo.Orders')
+)
+    ALTER TABLE dbo.Orders ADD CONSTRAINT CK_Orders_PaymentMethod CHECK (PaymentMethod IN (N'Cash', N'Visa'));
+GO
+
+IF NOT EXISTS
+(
+    SELECT 1
+    FROM sys.indexes
+    WHERE name = N'UQ_Customers_Phone'
+      AND object_id = OBJECT_ID(N'dbo.Customers')
+)
+BEGIN
+    IF EXISTS (SELECT 1 FROM dbo.Customers WHERE Phone IS NULL)
+        PRINT 'UQ_Customers_Phone was not added because existing customers still have NULL phone numbers.';
+    ELSE IF EXISTS (SELECT Phone FROM dbo.Customers GROUP BY Phone HAVING COUNT(*) > 1)
+        PRINT 'UQ_Customers_Phone was not added because duplicate phone numbers exist.';
     ELSE
     BEGIN
-        PRINT 'Phone column added as NULL (existing data present)';
-        PRINT 'Please update existing records with phone numbers, then run:';
-        PRINT 'ALTER TABLE Customers ALTER COLUMN Phone NVARCHAR(20) NOT NULL;';
+        ALTER TABLE dbo.Customers ALTER COLUMN Phone NVARCHAR(20) NOT NULL;
+        ALTER TABLE dbo.Customers ADD CONSTRAINT UQ_Customers_Phone UNIQUE (Phone);
     END
 END
-ELSE
-BEGIN
-    PRINT 'Phone column already exists';
-END
 GO
 
--- Add UNIQUE constraint to Phone if it doesn't exist
-IF NOT EXISTS (
-    SELECT * FROM sys.indexes 
-    WHERE name = 'UQ_Customers_Phone' AND object_id = OBJECT_ID('Customers')
-)
-BEGIN
-    PRINT 'Adding UNIQUE constraint to Phone column...';
-    
-    -- First make sure Phone is NOT NULL
-    ALTER TABLE Customers ALTER COLUMN Phone NVARCHAR(20) NOT NULL;
-    
-    -- Then add unique constraint
-    ALTER TABLE Customers ADD CONSTRAINT UQ_Customers_Phone UNIQUE (Phone);
-    PRINT 'UNIQUE constraint added to Phone column';
-END
-ELSE
-BEGIN
-    PRINT 'UNIQUE constraint on Phone already exists';
-END
+PRINT 'WrappingReservation database upgrade completed.';
 GO
 
--- Check current columns in Orders table
-PRINT 'Current columns in Orders table:';
-SELECT COLUMN_NAME, DATA_TYPE, NUMERIC_PRECISION, NUMERIC_SCALE
-FROM INFORMATION_SCHEMA.COLUMNS 
-WHERE TABLE_NAME = 'Orders'
-ORDER BY ORDINAL_POSITION;
-GO
 
--- Add missing columns to Orders table if they don't exist
--- BooksQty
-IF NOT EXISTS (
-    SELECT * FROM INFORMATION_SCHEMA.COLUMNS 
-    WHERE TABLE_NAME = 'Orders' AND COLUMN_NAME = 'BooksQty'
-)
-BEGIN
-    PRINT 'Adding BooksQty column to Orders table...';
-    ALTER TABLE Orders ADD BooksQty INT NOT NULL DEFAULT 1;
-END
-ELSE
-BEGIN
-    PRINT 'BooksQty column already exists';
-END
-GO
-
--- OtherPurchasesAmount
-IF NOT EXISTS (
-    SELECT * FROM INFORMATION_SCHEMA.COLUMNS 
-    WHERE TABLE_NAME = 'Orders' AND COLUMN_NAME = 'OtherPurchasesAmount'
-)
-BEGIN
-    PRINT 'Adding OtherPurchasesAmount column to Orders table...';
-    ALTER TABLE Orders ADD OtherPurchasesAmount DECIMAL(10,2) NOT NULL DEFAULT 0;
-END
-ELSE
-BEGIN
-    PRINT 'OtherPurchasesAmount column already exists';
-END
-GO
-
--- TotalBill
-IF NOT EXISTS (
-    SELECT * FROM INFORMATION_SCHEMA.COLUMNS 
-    WHERE TABLE_NAME = 'Orders' AND COLUMN_NAME = 'TotalBill'
-)
-BEGIN
-    PRINT 'Adding TotalBill column to Orders table...';
-    ALTER TABLE Orders ADD TotalBill DECIMAL(10,2) NOT NULL DEFAULT 0;
-END
-ELSE
-BEGIN
-    PRINT 'TotalBill column already exists';
-END
-GO
-
--- OrderDate
-IF NOT EXISTS (
-    SELECT * FROM INFORMATION_SCHEMA.COLUMNS 
-    WHERE TABLE_NAME = 'Orders' AND COLUMN_NAME = 'OrderDate'
-)
-BEGIN
-    PRINT 'Adding OrderDate column to Orders table...';
-    ALTER TABLE Orders ADD OrderDate DATETIME NOT NULL DEFAULT GETDATE();
-END
-ELSE
-BEGIN
-    PRINT 'OrderDate column already exists';
-END
-GO
-
--- Status
-IF NOT EXISTS (
-    SELECT * FROM INFORMATION_SCHEMA.COLUMNS 
-    WHERE TABLE_NAME = 'Orders' AND COLUMN_NAME = 'Status'
-)
-BEGIN
-    PRINT 'Adding Status column to Orders table...';
-    ALTER TABLE Orders ADD Status NVARCHAR(20) NOT NULL DEFAULT 'Pending';
-END
-ELSE
-BEGIN
-    PRINT 'Status column already exists';
-END
-GO
-
--- Add Foreign Key constraint if it doesn't exist
-IF NOT EXISTS (
-    SELECT * FROM sys.foreign_keys 
-    WHERE name = 'FK_Orders_Customers' AND parent_object_id = OBJECT_ID('Orders')
-)
-BEGIN
-    PRINT 'Adding Foreign Key constraint...';
-    ALTER TABLE Orders 
-    ADD CONSTRAINT FK_Orders_Customers 
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID);
-    PRINT 'Foreign Key constraint added';
-END
-ELSE
-BEGIN
-    PRINT 'Foreign Key constraint already exists';
-END
-GO
-
-PRINT 'Database column fix completed!';
-GO
-
--- Final verification
-PRINT 'Final Customers table structure:';
-SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, IS_NULLABLE
-FROM INFORMATION_SCHEMA.COLUMNS 
-WHERE TABLE_NAME = 'Customers'
-ORDER BY ORDINAL_POSITION;
-GO
-
-PRINT 'Final Orders table structure:';
-SELECT COLUMN_NAME, DATA_TYPE, NUMERIC_PRECISION, NUMERIC_SCALE, IS_NULLABLE
-FROM INFORMATION_SCHEMA.COLUMNS 
-WHERE TABLE_NAME = 'Orders'
-ORDER BY ORDINAL_POSITION;
-GO

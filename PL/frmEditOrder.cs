@@ -30,7 +30,9 @@ namespace PL
                     nudBooksQty.Value = Convert.ToInt32(row["BooksQty"]);
                     txtOtherPurchases.Text = Convert.ToDecimal(row["OtherPurchasesAmount"]).ToString("F2");
                     cmbStatus.Text = row["Status"].ToString();
-                    cmbPaymentMethod.Text = row["PaymentMethod"].ToString();
+                    cmbPaymentMethod.Text = row.Table.Columns.Contains("PaymentMethod") && row["PaymentMethod"] != DBNull.Value
+                        ? row["PaymentMethod"].ToString()
+                        : "Cash";
                     CalculateTotal();
                 }
             }
@@ -60,16 +62,16 @@ namespace PL
                 if (decimal.TryParse(txtOtherPurchases.Text, out otherPurchases))
                 {
                     decimal total = orderBLL.CalculateTotalBill(booksQty, otherPurchases);
-                    lblTotalBill.Text = total.ToString("F2") + " JD";
+                    lblTotalBillValue.Text = total.ToString("F2") + " JD";
                 }
                 else
                 {
-                    lblTotalBill.Text = "0.00 JD";
+                    lblTotalBillValue.Text = "0.00 JD";
                 }
             }
             catch
             {
-                lblTotalBill.Text = "0.00 JD";
+                lblTotalBillValue.Text = "0.00 JD";
             }
         }
 
@@ -90,7 +92,7 @@ namespace PL
 
             try
             {
-                bool success = orderBLL.UpdateOrder(orderId, booksQty, otherPurchases, status, paymentMethod);
+                bool success = orderBLL.UpdateOrder(orderId, booksQty, otherPurchases, status);
 
                 if (success)
                 {

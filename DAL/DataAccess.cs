@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -6,8 +7,23 @@ namespace DAL
 {
     public class DataAccess
     {
-        // Update this connection string according to your SQL Server configuration
-        public static string connectionString = "Server = .;Database = InventoryDB;User ID = sa ; Password = 123456;";
+        private const string ConnectionStringName = "WrappingReservation";
+
+        public static string connectionString
+        {
+            get
+            {
+                ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[ConnectionStringName];
+                if (settings == null || string.IsNullOrWhiteSpace(settings.ConnectionString))
+                {
+                    throw new ConfigurationErrorsException(
+                        "The WrappingReservation database connection is not configured. " +
+                        "Add a connection string named 'WrappingReservation' to App.config.");
+                }
+
+                return settings.ConnectionString;
+            }
+        }
 
         public SqlConnection GetConnection()
         {
@@ -17,20 +33,15 @@ namespace DAL
         public DataTable ExecuteQuery(string query, SqlParameter[] parameters = null)
         {
             using (SqlConnection conn = GetConnection())
+            using (SqlCommand cmd = new SqlCommand(query, conn))
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    if (parameters != null)
-                    {
-                        cmd.Parameters.AddRange(parameters);
-                    }
+                AddParameters(cmd, parameters);
 
-                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                    {
-                        DataTable dt = new DataTable();
-                        da.Fill(dt);
-                        return dt;
-                    }
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    return dt;
                 }
             }
         }
@@ -38,35 +49,33 @@ namespace DAL
         public int ExecuteNonQuery(string query, SqlParameter[] parameters = null)
         {
             using (SqlConnection conn = GetConnection())
+            using (SqlCommand cmd = new SqlCommand(query, conn))
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    if (parameters != null)
-                    {
-                        cmd.Parameters.AddRange(parameters);
-                    }
-
-                    conn.Open();
-                    return cmd.ExecuteNonQuery();
-                }
+                AddParameters(cmd, parameters);
+                conn.Open();
+                return cmd.ExecuteNonQuery();
             }
         }
 
         public object ExecuteScalar(string query, SqlParameter[] parameters = null)
         {
             using (SqlConnection conn = GetConnection())
+            using (SqlCommand cmd = new SqlCommand(query, conn))
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    if (parameters != null)
-                    {
-                        cmd.Parameters.AddRange(parameters);
-                    }
+                AddParameters(cmd, parameters);
+                conn.Open();
+                return cmd.ExecuteScalar();
+            }
+        }
 
-                    conn.Open();
-                    return cmd.ExecuteScalar();
-                }
+        private static void AddParameters(SqlCommand command, SqlParameter[] parameters)
+        {
+            if (parameters != null && parameters.Length > 0)
+            {
+                command.Parameters.AddRange(parameters);
             }
         }
     }
 }
+
+

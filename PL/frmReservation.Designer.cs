@@ -33,6 +33,16 @@ namespace PL
             ((System.ComponentModel.ISupportInitialize)(this.nudBooksQty)).BeginInit();
             this.SuspendLayout();
             // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Location = new System.Drawing.Point(199, 38);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(376, 31);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "Book Wrapping Reservation";
+            // 
             // lblPhone
             // 
             this.lblPhone.AutoSize = true;
@@ -127,29 +137,6 @@ namespace PL
             this.txtOtherPurchases.Text = "0";
             this.txtOtherPurchases.TextChanged += new System.EventHandler(this.txtOtherPurchases_TextChanged);
             // 
-            // lblPaymentMethod
-            // 
-            this.lblPaymentMethod.AutoSize = true;
-            this.lblPaymentMethod.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPaymentMethod.Location = new System.Drawing.Point(139, 299);
-            this.lblPaymentMethod.Name = "lblPaymentMethod";
-            this.lblPaymentMethod.Size = new System.Drawing.Size(157, 24);
-            this.lblPaymentMethod.TabIndex = 10;
-            this.lblPaymentMethod.Text = "Payment Method:";
-            // 
-            // cmbPaymentMethod
-            // 
-            this.cmbPaymentMethod.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbPaymentMethod.FormattingEnabled = true;
-            this.cmbPaymentMethod.Items.AddRange(new object[] {
-            "Cash",
-            "Visa"});
-            this.cmbPaymentMethod.Location = new System.Drawing.Point(313, 296);
-            this.cmbPaymentMethod.Name = "cmbPaymentMethod";
-            this.cmbPaymentMethod.Size = new System.Drawing.Size(120, 30);
-            this.cmbPaymentMethod.TabIndex = 11;
-            this.cmbPaymentMethod.Text = "Cash";
-            // 
             // lblTotalBill
             // 
             this.lblTotalBill.AutoSize = true;
@@ -157,7 +144,7 @@ namespace PL
             this.lblTotalBill.Location = new System.Drawing.Point(139, 370);
             this.lblTotalBill.Name = "lblTotalBill";
             this.lblTotalBill.Size = new System.Drawing.Size(150, 38);
-            this.lblTotalBill.TabIndex = 12;
+            this.lblTotalBill.TabIndex = 10;
             this.lblTotalBill.Text = "Total Bill:";
             // 
             // lblTotalBillValue
@@ -168,7 +155,7 @@ namespace PL
             this.lblTotalBillValue.Location = new System.Drawing.Point(343, 370);
             this.lblTotalBillValue.Name = "lblTotalBillValue";
             this.lblTotalBillValue.Size = new System.Drawing.Size(130, 38);
-            this.lblTotalBillValue.TabIndex = 13;
+            this.lblTotalBillValue.TabIndex = 11;
             this.lblTotalBillValue.Text = "0.00 JD";
             // 
             // btnSave
@@ -180,7 +167,7 @@ namespace PL
             this.btnSave.Location = new System.Drawing.Point(146, 443);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(150, 42);
-            this.btnSave.TabIndex = 14;
+            this.btnSave.TabIndex = 12;
             this.btnSave.Text = "Save Reservation";
             this.btnSave.UseVisualStyleBackColor = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -194,7 +181,7 @@ namespace PL
             this.btnClear.Location = new System.Drawing.Point(333, 443);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(100, 42);
-            this.btnClear.TabIndex = 15;
+            this.btnClear.TabIndex = 13;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = false;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
@@ -208,20 +195,10 @@ namespace PL
             this.btnClose.Location = new System.Drawing.Point(491, 443);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(100, 42);
-            this.btnClose.TabIndex = 16;
+            this.btnClose.TabIndex = 14;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(199, 38);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(376, 31);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Book Wrapping Reservation";
             // 
             // frmReservation
             // 
@@ -234,8 +211,6 @@ namespace PL
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblTotalBillValue);
             this.Controls.Add(this.lblTotalBill);
-            this.Controls.Add(this.cmbPaymentMethod);
-            this.Controls.Add(this.lblPaymentMethod);
             this.Controls.Add(this.txtOtherPurchases);
             this.Controls.Add(this.lblOtherPurchases);
             this.Controls.Add(this.nudBooksQty);
@@ -267,8 +242,6 @@ namespace PL
         private System.Windows.Forms.NumericUpDown nudBooksQty;
         private System.Windows.Forms.Label lblOtherPurchases;
         private System.Windows.Forms.TextBox txtOtherPurchases;
-        private System.Windows.Forms.Label lblPaymentMethod;
-        private System.Windows.Forms.ComboBox cmbPaymentMethod;
         private System.Windows.Forms.Label lblTotalBill;
         private System.Windows.Forms.Label lblTotalBillValue;
         private System.Windows.Forms.Button btnSave;

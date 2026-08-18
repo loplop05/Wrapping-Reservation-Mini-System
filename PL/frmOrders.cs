@@ -58,7 +58,10 @@ namespace PL
                 dgv.Columns["TotalBill"].HeaderText = "Total Bill";
                 dgv.Columns["OrderDate"].HeaderText = "Order Date";
                 dgv.Columns["Status"].HeaderText = "Status";
-                dgv.Columns["PaymentMethod"].HeaderText = "Payment";
+                if (dgv.Columns.Contains("PaymentMethod"))
+                {
+                    dgv.Columns["PaymentMethod"].HeaderText = "Payment";
+                }
 
                 // Format columns
                 dgv.Columns["OtherPurchasesAmount"].DefaultCellStyle.Format = "F2";

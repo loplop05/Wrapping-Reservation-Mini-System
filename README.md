@@ -1,4 +1,4 @@
-# Library Book Wrapping Reservation System
+﻿# Library Book Wrapping Reservation System
 
 A simple desktop application for managing book wrapping reservations in a small library during the back-to-school season.
 
@@ -13,26 +13,26 @@ A simple desktop application for managing book wrapping reservations in a small 
 
 ```
 Wrapping Reservation Mini System
-│
-├── DAL/                          # Data Access Layer
-│   ├── DataAccess.cs            # Database connection management
-│   ├── CustomerDAL.cs           # Customer data operations
-│   └── OrderDAL.cs              # Order data operations
-│
-├── BLL/                          # Business Logic Layer
-│   ├── CustomerBLL.cs           # Customer business logic
-│   └── OrderBLL.cs              # Order business logic
-│
-├── PL/                           # Presentation Layer
-│   ├── frmMain.cs               # Main menu form
-│   ├── frmReservation.cs        # Add reservation form
-│   ├── frmOrders.cs             # Orders management form
-│   ├── frmEditOrder.cs          # Edit order form
-│   └── frmChangeStatus.cs       # Change order status form
-│
-├── Database.sql                  # Database schema script
-├── Program.cs                    # Application entry point
-└── README.md                     # This file
+â”‚
+â”œâ”€â”€ DAL/                          # Data Access Layer
+â”‚   â”œâ”€â”€ DataAccess.cs            # Database connection management
+â”‚   â”œâ”€â”€ CustomerDAL.cs           # Customer data operations
+â”‚   â””â”€â”€ OrderDAL.cs              # Order data operations
+â”‚
+â”œâ”€â”€ BLL/                          # Business Logic Layer
+â”‚   â”œâ”€â”€ CustomerBLL.cs           # Customer business logic
+â”‚   â””â”€â”€ OrderBLL.cs              # Order business logic
+â”‚
+â”œâ”€â”€ PL/                           # Presentation Layer
+â”‚   â”œâ”€â”€ frmMain.cs               # Main menu form
+â”‚   â”œâ”€â”€ frmReservation.cs        # Add reservation form
+â”‚   â”œâ”€â”€ frmOrders.cs             # Orders management form
+â”‚   â”œâ”€â”€ frmEditOrder.cs          # Edit order form
+â”‚   â””â”€â”€ frmChangeStatus.cs       # Change order status form
+â”‚
+â”œâ”€â”€ Database.sql                  # Database schema script
+â”œâ”€â”€ Program.cs                    # Application entry point
+â””â”€â”€ README.md                     # This file
 ```
 
 ## Database Setup
@@ -41,21 +41,21 @@ Wrapping Reservation Mini System
 2. Connect to your SQL Server instance
 3. Open and execute the `Database.sql` script
 4. This will create:
-   - Database: `LibraryBookWrapping`
+   - Database: `WrappingReservation`
    - Table: `Customers` (CustomerID, Phone, Name)
-   - Table: `Orders` (OrderID, CustomerID, BooksQty, OtherPurchasesAmount, TotalBill, OrderDate, Status)
+   - Table: `Orders` (OrderID, CustomerID, BooksQty, OtherPurchasesAmount, TotalBill, OrderDate, Status, PaymentMethod)
 
 ## Connection String
 
-Update the connection string in `DAL/DataAccess.cs` if needed:
+Update the `WrappingReservation` connection string in `App.config` if needed:
 
 ```csharp
-private string connectionString = "Server=localhost;Database=LibraryBookWrapping;Trusted_Connection=True;";
+<add name="WrappingReservation" connectionString="Server=.;Database=WrappingReservation;User ID=sa;Password=123456;TrustServerCertificate=True;" providerName="System.Data.SqlClient" />
 ```
 
 **For SQL Server Authentication:**
 ```csharp
-private string connectionString = "Server=YOUR_SERVER;Database=LibraryBookWrapping;User Id=YOUR_USERNAME;Password=YOUR_PASSWORD;";
+private string connectionString = "Server=YOUR_SERVER;Database=WrappingReservation;User Id=YOUR_USERNAME;Password=YOUR_PASSWORD;";
 ```
 
 ## Application Features
@@ -70,11 +70,12 @@ private string connectionString = "Server=YOUR_SERVER;Database=LibraryBookWrappi
 - Search for existing customer or create new one
 - Enter number of books
 - Enter other purchases amount
+- New reservations use Cash as the payment method; payment can be changed when editing an order
 - Automatic total bill calculation (1 JD per book + other purchases)
 - Save reservation
 
 ### Orders Management (frmOrders)
-- View all reservations in a DataGridView
+- View all reservations in a DataGridView, including payment method
 - Search by phone number, customer name, or order ID
 - Add new reservation
 - Edit existing reservation
@@ -92,7 +93,7 @@ private string connectionString = "Server=YOUR_SERVER;Database=LibraryBookWrappi
 
 ### OrderBLL
 - **Wrapping Price**: Configurable (default: 1 JD per book)
-- **Total Calculation**: `Total = (BooksQty × WrappingPrice) + OtherPurchases`
+- **Total Calculation**: `Total = (BooksQty Ã— WrappingPrice) + OtherPurchases`
 - **Validation**: Phone number, name, book quantity, other purchases, status
 
 ### CustomerBLL
@@ -103,7 +104,7 @@ private string connectionString = "Server=YOUR_SERVER;Database=LibraryBookWrappi
 
 ### Using Visual Studio
 1. Open `Wrapping Reservation Mini System.slnx` in Visual Studio
-2. Update connection string in `DAL/DataAccess.cs` if needed
+2. Update the `WrappingReservation` connection string in `App.config` if needed
 3. Press F5 or click "Start" to run the application
 
 ### Using Command Line
@@ -163,11 +164,14 @@ CREATE TABLE Orders
     TotalBill DECIMAL(10,2) NOT NULL,
     OrderDate DATETIME NOT NULL DEFAULT GETDATE(),
     Status NVARCHAR(20) NOT NULL DEFAULT 'Pending',
+    PaymentMethod NVARCHAR(20) NOT NULL DEFAULT 'Cash',
     
     CONSTRAINT FK_Orders_Customers FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
     CONSTRAINT CK_Orders_BooksQty CHECK (BooksQty > 0),
     CONSTRAINT CK_Orders_OtherPurchases CHECK (OtherPurchasesAmount >= 0),
-    CONSTRAINT CK_Orders_TotalBill CHECK (TotalBill >= 0)
+    CONSTRAINT CK_Orders_TotalBill CHECK (TotalBill >= 0),
+    CONSTRAINT CK_Orders_Status CHECK (Status IN ('Pending', 'Ready', 'Completed', 'Cancelled')),
+    CONSTRAINT CK_Orders_PaymentMethod CHECK (PaymentMethod IN ('Cash', 'Visa'))
 );
 ```
 
@@ -175,8 +179,8 @@ CREATE TABLE Orders
 
 ### Connection Issues
 - Ensure SQL Server is running
-- Verify connection string in `DAL/DataAccess.cs`
-- Check that the database `LibraryBookWrapping` exists
+- Verify the `WrappingReservation` connection string in `App.config`
+- Run `Database.sql` for a new installation or `FixDatabaseColumns.sql` for an existing database
 
 ### Build Errors
 - Ensure .NET Framework 4.7.2 is installed
@@ -189,3 +193,5 @@ CREATE TABLE Orders
 - No online payments or APIs
 - Designed for small library back-to-school season use
 - Clean, professional UI suitable for non-technical employees
+
+

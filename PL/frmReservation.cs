@@ -76,16 +76,16 @@ namespace PL
                 if (decimal.TryParse(txtOtherPurchases.Text, out otherPurchases))
                 {
                     decimal total = orderBLL.CalculateTotalBill(booksQty, otherPurchases);
-                    lblTotalBill.Text = total.ToString("F2") + " JD";
+                    lblTotalBillValue.Text = total.ToString("F2") + " JD";
                 }
                 else
                 {
-                    lblTotalBill.Text = "0.00 JD";
+                    lblTotalBillValue.Text = "0.00 JD";
                 }
             }
             catch
             {
-                lblTotalBill.Text = "0.00 JD";
+                lblTotalBillValue.Text = "0.00 JD";
             }
         }
 
@@ -142,7 +142,8 @@ namespace PL
 
             try
             {
-                bool success = orderBLL.CreateOrder(currentCustomerId, booksQty, otherPurchases, "Pending");
+                const string paymentMethod = "Cash";
+                bool success = orderBLL.CreateOrder(currentCustomerId, booksQty, otherPurchases, "Pending", paymentMethod);
 
                 if (success)
                 {
@@ -172,7 +173,7 @@ namespace PL
             txtName.ReadOnly = false;
             nudBooksQty.Value = 1;
             txtOtherPurchases.Text = "0";
-            lblTotalBill.Text = "0.00 JD";
+            lblTotalBillValue.Text = "0.00 JD";
             currentCustomerId = -1; // Reset to allow new customer or same customer for new reservation
             txtPhone.Focus();
         }

@@ -57,7 +57,7 @@ namespace PL
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading statistics: " + ex.Message + "\n\nPlease ensure the PaymentMethod column exists in the Orders table.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error loading statistics: " + ex.Message + "\n\nRun Database.sql for a new database or FixDatabaseColumns.sql to upgrade an existing database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
                 // Set default values on error
                 lblTotalCustomers.Text = "0";
